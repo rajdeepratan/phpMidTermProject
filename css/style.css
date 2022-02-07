@@ -19,6 +19,20 @@
     margin-right: 20px;
 }
 
-.copy-right {
+.home-page .red-border {
+    border: 5px solid red;
+}
+
+footer {
+    background-color: black;
+    color: white;
+    padding: 50px;
+}
+
+footer .copy-right {
     text-align: center;
+}
+
+footer .copy-right span {
+    color: #ecc12e;
 }
