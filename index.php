@@ -2,19 +2,16 @@
     include_once "./phpFunction/functionProducts.php";
 
     pageTop("Index");
+
+    $collocationArray = array(COLLOCATION1,COLLOCATION2,COLLOCATION3,COLLOCATION4,COLLOCATION5);
+    shuffle($collocationArray);
 ?>
 
-
-
-<?php
-    $myarray = array(COLLOCATION1,COLLOCATION2,COLLOCATION3,COLLOCATION4,COLLOCATION5);
-    shuffle($myarray);
-?>
-    <div class="home-page">
-        <div class="mt-5 d-flex justify-content-between align-items-center">
+    <div class="home-page pt-5 pb-5">
+        <div class="d-flex justify-content-between align-items-center">
             <div class="me-3">
                 <a href="#">
-                    <img class="<?php echo $myarray[0] =='assets/images/collocation-1.jpeg'? "red-border" : "" ?>" alt="advertising" src="<?php echo $myarray[0]; ?>">
+                    <img class="<?php echo $collocationArray[0] =='assets/images/collocation-1.jpeg'? "red-border" : "" ?>" alt="advertising" src="<?php echo $myarray[0]; ?>">
                 </a>
             </div>
             <div class="text-center">

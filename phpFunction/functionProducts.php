@@ -3,7 +3,7 @@
 # define all the contacts
 define("FILE_INDEX", "index.php");
 define("FILE_PRODUCTS", "products.php");
-define("FILE_CONTACT", "contacts.php");
+define("FILE_ORDERS", "orders.php");
 
 define("FOLDER_CSS", "./CSS/");
 define("FILE_CSS", FOLDER_CSS . "style.css");
@@ -23,6 +23,7 @@ define("COLLOCATION9", FOLDER_PICTURES . "collocation-9.jpeg");
 
 function pageTop($pageTitle) {
     ?>
+        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html>
         <head>
             <meta charset="utf-8">
@@ -62,7 +63,7 @@ function navigationMenu() {
                             <a class="nav-link" href="<?php echo FILE_PRODUCTS ?>">Products</a>
                             </li>
                             <li class="nav-item">
-                            <a class="nav-link" href="<?php echo FILE_CONTACT ?>">Contact Us</a>
+                            <a class="nav-link" href="<?php echo FILE_ORDERS ?>">Orders</a>
                             </li>
                         </ul>
                         </div>
@@ -76,7 +77,7 @@ function navigationMenu() {
 
 function pageBottom() {
     ?>      </div>
-                <footer class="mt-4">
+                <footer class="">
                     <p class="copy-right">Copyright <span>Rajdeep Singh Ratan (2110167)</span> <?php echo date("Y"); ?></p>
                 </footer>
 
