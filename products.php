@@ -19,6 +19,10 @@ $errorComment = "";
 $errorPrice = "";
 $errorQuantity = "";
 
+#success variable
+$success = false;
+
+#html
 
 #validate the posted date
 
@@ -29,8 +33,16 @@ $errorQuantity = "";
         if(empty($_POST["productCode"])) {
             $errorOccurred = true;
             $errorProductCode = "Please enter the product code";
-        } else {
-            $productCode = $_POST["productCode"];
+        } else if(mb_strlen($_POST["productCode"]) > 12) {
+            $errorOccurred = true;
+            $errorProductCode = "Product code not be more than 12 characters";
+        } 
+        // else if(mb_substr($_POST["productCode"], 0,1) != 'p' || mb_substr($_POST["productCode"], 0,1) != 'P') {
+        //     $errorOccurred = true;
+        //     $errorProductCode = "Product code should start from P";
+        // } 
+        else {
+            $productCode = htmlspecialchars($_POST["productCode"]);
         }
 
         if(empty($_POST["firstName"])) {
@@ -40,7 +52,7 @@ $errorQuantity = "";
             $errorOccurred = true;
             $errorFirstName = "First name can not be more than 20 characters";
         } else {
-            $firstName = $_POST["firstName"];
+            $firstName = htmlspecialchars($_POST["firstName"]);
         }
 
         if(empty($_POST["lastName"])) {
@@ -50,7 +62,7 @@ $errorQuantity = "";
             $errorOccurred = true;
             $errorLastName = "Last name can not be more than 20 characters";
         } else {
-            $lastName = $_POST["lastName"];
+            $lastName = htmlspecialchars($_POST["lastName"]);
         }
 
         if(empty($_POST["city"])) {
@@ -60,7 +72,7 @@ $errorQuantity = "";
             $errorOccurred = true;
             $errorCity = "City name can not be more than 8 characters";
         } else {
-            $city = $_POST["city"];
+            $city = htmlspecialchars($_POST["city"]);
         }
 
         if(mb_strlen($_POST["comment"]) > 0){
@@ -68,7 +80,7 @@ $errorQuantity = "";
                 $errorOccurred = true;
                 $errorComment = "Comment can not be more than 200 characters";
             } else {
-                $comment = $_POST["comment"];
+                $comment = htmlspecialchars($_POST["comment"]);
             }
         }
 
@@ -82,7 +94,7 @@ $errorQuantity = "";
                 $errorPrice = "Price can not be higher than 10,000.00$";
 
             } else {
-                $price = $_POST["price"];
+                $price = htmlspecialchars($_POST["price"]);
             }
         } 
         else {
@@ -96,12 +108,29 @@ $errorQuantity = "";
         } else if ($_POST["quantity"] < 1 && $_POST["quantity"] > 99) {
             $errorQuantity = "Quantity should be between 1 to 99";
         } else {
-            $quantity = $_POST["quantity"];
+            $quantity = htmlspecialchars($_POST["quantity"]);
         }
 
         if($errorOccurred == false) {
-            header('Location: orders.php');
-            die();
+
+            #save all the values in file
+            $data = array($productCode, $firstName, $lastName, $city, $comment, $price, $quantity);
+            $JSONdata = json_encode($data);
+            file_put_contents("./dataFile/data.txt", "$JSONdata\r\n", FILE_APPEND);
+
+            # clear all the variables
+            $productCode = "";
+            $firstName = "";
+            $lastName = "";
+            $city = "";
+            $comment = "";
+            $price = "";
+            $quantity = "";
+
+            #show success message
+            $success = true;
+            // header('Location: orders.php');
+            // die();
         }
 
     }
@@ -117,53 +146,10 @@ $errorQuantity = "";
 ?>
 
     <div class="product-page pt-5 pb-5">
-        <!-- <div class="row">
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-3">
-                <div class="card">
-                    <img src="..." class="card-img-top" alt="...">
-                    <div class="card-body">
-                        <h5 class="card-title">Card title</h5>
-                        <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                        <a href="#" class="btn btn-primary">Go somewhere</a>
-                    </div>
-                </div>
-            </div>
-        </div> -->
-
         <form action="products.php" method="POST">
             <div class="mb-3">
                 <label for="productCode" class="form-label">Product Code:</label>
-                <input type="text" class="form-control" name="productCode" id="productCode" value="<?php echo $productCode ?>"/>
+                <input type="text" class="form-control" name="productCode" id="productCode" value="<?php echo $productCode ?>" required />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorProductCode)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorProductCode;
@@ -172,7 +158,7 @@ $errorQuantity = "";
             </div>
             <div class="mb-3">
                 <label for="firstName" class="form-label">First Name:</label>
-                <input type="text" class="form-control" name="firstName" id="firstName" value="<?php echo $firstName ?>" />
+                <input type="text" class="form-control" name="firstName" id="firstName" value="<?php echo $firstName ?>" required />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorFirstName)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorFirstName;
@@ -181,7 +167,7 @@ $errorQuantity = "";
             </div>
             <div class="mb-3">
                 <label for="lastName" class="form-label">Last Name:</label>
-                <input type="text" class="form-control" name="lastName" id="lastName" value="<?php echo $lastName ?>" />
+                <input type="text" class="form-control" name="lastName" id="lastName" value="<?php echo $lastName ?>" required />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorLastName)) echo "d-none" ?>" role="alert">
                    <?php 
                         echo $errorLastName;
@@ -190,7 +176,7 @@ $errorQuantity = "";
             </div>
             <div class="mb-3">
                 <label for="city" class="form-label">City:</label>
-                <input type="text" class="form-control" name="city" id="city" value="<?php echo $city ?>" />
+                <input type="text" class="form-control" name="city" id="city" value="<?php echo $city ?>" required />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorCity)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorCity;
@@ -209,7 +195,7 @@ $errorQuantity = "";
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price:</label>
-                <input type="text" class="form-control" name="price" id="price" value="<?php echo $price ?>"/>
+                <input type="text" class="form-control" name="price" id="price" value="<?php echo $price ?>" required/>
                 <div class="alert alert-danger mt-3 <?php if(empty($errorPrice)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorPrice;
@@ -218,7 +204,7 @@ $errorQuantity = "";
             </div>
             <div class="mb-3">
                 <label for="quantity" class="form-label">Quantity:</label>
-                <input type="number" class="form-control" name="quantity" id="quantity" value="<?php echo $quantity ?>" />
+                <input type="number" class="form-control" name="quantity" id="quantity" value="<?php echo $quantity ?>" required />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorQuantity)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorQuantity;
@@ -227,6 +213,9 @@ $errorQuantity = "";
             </div>
             <input type="submit" class="btn btn-primary" name="submitButton" value="Submit" />
         </form>
+        <div class="alert alert-success mt-4 <?php if(!$success) echo "d-none" ?>" role="alert">
+            Your order has been placed
+        </div>
 
     </div>
 

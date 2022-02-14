@@ -5,8 +5,9 @@ define("FILE_INDEX", "index.php");
 define("FILE_PRODUCTS", "products.php");
 define("FILE_ORDERS", "orders.php");
 
-define("FOLDER_CSS", "./CSS/");
+define("FOLDER_CSS", "./css/");
 define("FILE_CSS", FOLDER_CSS . "style.css");
+
 define("FOLDER_PICTURES", "assets/images/");
 define("WEBSITE_LOGO", FOLDER_PICTURES . "logo.png");
 define("COLLOCATION1", FOLDER_PICTURES . "collocation-1.jpeg");
@@ -19,6 +20,8 @@ define("COLLOCATION7", FOLDER_PICTURES . "collocation-7.jpeg");
 define("COLLOCATION8", FOLDER_PICTURES . "collocation-8.jpeg");
 define("COLLOCATION9", FOLDER_PICTURES . "collocation-9.jpeg");
 
+define("DATA_FOLDER", "./dataFile");
+define("DATA_FILE", DATA_FOLDER . "data.txt");
 
 
 function pageTop($pageTitle) {
