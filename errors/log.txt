@@ -1,0 +1,44 @@
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+null
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 12"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 12"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 12"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
+"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+"2022-02-18 - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+"2022-02-18 - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"

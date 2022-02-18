@@ -1,6 +1,60 @@
 <?php
 
+define("DEBUGGING_MODE", true);
+define("FOLDER_ERROR", "./errors/");
+define("FILE_ERROR", FOLDER_ERROR ."log.txt");
+$currentDateTime = date('Y-m-d');
+echo $currentDateTime;
+
+function manageError($errorNumber, $errorString, $errorFile, $errorLine) {
+    global $currentDateTime;
+    
+    $detailedError = $currentDateTime . " - An error " . $errorNumber . "{" . $errorString . "} occurred in the file " . $errorFile . " at line " . $errorLine;
+
+    if(DEBUGGING_MODE == true) {
+        #for developers
+        echo $detailedError;
+    }
+
+    #for end-user
+    echo "<br>An error occurred";
+
+
+    #save in the file the detail error
+    $data = $detailedError;
+    $JSONdata = json_encode($detailedError);
+    file_put_contents(FILE_ERROR, "$JSONdata\r\n", FILE_APPEND);
+
+    exit(); # kill PHP
+    
+}
+
+function manageException($exception) {
+
+    $detailedError = "An exception " . $exception->getCode() . "{" . $exception->getMessage() . "} occurred in the file " . $exception->getFile() . " at line " . $exception->getLine();
+
+    if(DEBUGGING_MODE == true) {
+        #for developers
+        echo $detailedError;
+    }
+
+    #for end-user
+    echo "<br>An exception occurred";
+
+
+    #save in the file the detail error
+    $JSONdata = json_encode($detailedError);
+    file_put_contents(FILE_ERROR, "$JSONdata\r\n", FILE_APPEND);
+
+    exit(); # kill PHP
+    
+}
+
+set_error_handler("manageError");
+set_exception_handler("manageException");
+
 # define all the contacts
+define("LOCAL_TAXES", 13.45);
 define("FILE_INDEX", "index.php");
 define("FILE_PRODUCTS", "products.php");
 define("FILE_ORDERS", "orders.php");
@@ -8,7 +62,7 @@ define("FILE_ORDERS", "orders.php");
 define("FOLDER_CSS", "./css/");
 define("FILE_CSS", FOLDER_CSS . "style.css");
 
-define("FOLDER_PICTURES", "assets/images/");
+define("FOLDER_PICTURES", "./assets/images/");
 define("WEBSITE_LOGO", FOLDER_PICTURES . "logo.png");
 define("COLLOCATION1", FOLDER_PICTURES . "collocation-1.jpeg");
 define("COLLOCATION2", FOLDER_PICTURES . "collocation-2.jpeg");
@@ -25,8 +79,11 @@ define("DATA_FILE", DATA_FOLDER . "data.txt");
 
 
 function pageTop($pageTitle) {
-    ?>
-        <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
+    header('Expires: Sat, 03 Dec 1994 16:00:00 GMT');
+    header('CacheControl: no-cache');
+    header('Pragma: no-cache');
+    header('Content-type: text/html; charset=UTF-8');
+    ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html>
         <head>
             <meta charset="utf-8">
@@ -51,7 +108,7 @@ function navigationMenu() {
             <div class="logo-section">
                 <img class="logo" src="<?php echo WEBSITE_LOGO ?>" alt="website-logo"/>
             </div>
-            <div id="topheader">
+            <div>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
                     <div class="container-fluid">
                         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
@@ -83,16 +140,6 @@ function pageBottom() {
                 <footer class="">
                     <p class="copy-right">Copyright <span>Rajdeep Singh Ratan (2110167)</span> <?php echo date("Y"); ?></p>
                 </footer>
-
-                <script>
-                    $( '#topheader .navbar-nav a' ).on('click', 
-                                function () {
-                        $( '#topheader .navbar-nav' ).find( 'a.active' )
-                        .removeClass( 'active' );
-                        $( this ).parent( 'a' ).addClass( 'active' );
-                    });
-                </script>
-
             </body>
         </html>
         

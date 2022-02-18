@@ -1,5 +1,7 @@
 <?php
 
+include_once "./phpFunction/functionProducts.php";
+
 #variables
 $productCode = "";
 $firstName = "";
@@ -22,8 +24,6 @@ $errorQuantity = "";
 #success variable
 $success = false;
 
-#html
-
 #validate the posted date
 
     #check if the user clicked the submit button
@@ -37,10 +37,10 @@ $success = false;
             $errorOccurred = true;
             $errorProductCode = "Product code not be more than 12 characters";
         } 
-        // else if(mb_substr($_POST["productCode"], 0,1) != 'p' || mb_substr($_POST["productCode"], 0,1) != 'P') {
-        //     $errorOccurred = true;
-        //     $errorProductCode = "Product code should start from P";
-        // } 
+        else if(mb_substr($_POST["productCode"], 0,1) != 'p' && mb_substr($_POST["productCode"], 0,1) != 'P') {
+            $errorOccurred = true;
+            $errorProductCode = "Product code should start from P";
+        } 
         else {
             $productCode = htmlspecialchars($_POST["productCode"]);
         }
@@ -113,10 +113,16 @@ $success = false;
 
         if($errorOccurred == false) {
 
+            #calculate the sub total, taxes amount and grand total
+            $subTotal = (float)$price * (float)$quantity;
+            $taxesAmount = ($subTotal/100) * LOCAL_TAXES;
+            $grandTotal = $subTotal + $taxesAmount;
+            $roundedTotal = round($grandTotal, 2);
+
             #save all the values in file
-            $data = array($productCode, $firstName, $lastName, $city, $comment, $price, $quantity);
+            $data = array($productCode, $firstName, $lastName, $city, $price, $quantity, $comment, $subTotal, $taxesAmount, $roundedTotal);
             $JSONdata = json_encode($data);
-            file_put_contents("./dataFile/data.txt", "$JSONdata\r\n", FILE_APPEND);
+            file_put_contents(DATA_FILE, "$JSONdata\r\n", FILE_APPEND);
 
             # clear all the variables
             $productCode = "";
@@ -124,8 +130,8 @@ $success = false;
             $lastName = "";
             $city = "";
             $comment = "";
-            $price = "";
-            $quantity = "";
+            $price = 0;
+            $quantity = 0;
 
             #show success message
             $success = true;
@@ -139,10 +145,7 @@ $success = false;
 
 
 <?php
-
-    include_once "./phpFunction/functionProducts.php";
     pageTop("Products");
-
 ?>
 
     <div class="product-page pt-5 pb-5">

@@ -3,8 +3,7 @@
     include_once "./phpFunction/functionProducts.php";
     pageTop("Orders");
 
-    echo $_POST['command'];
-
+    #echo $_POST['command'];
 ?>
 
     <div class="order-page pt-5 pb-5">
