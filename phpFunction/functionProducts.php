@@ -4,7 +4,6 @@ define("DEBUGGING_MODE", true);
 define("FOLDER_ERROR", "./errors/");
 define("FILE_ERROR", FOLDER_ERROR ."log.txt");
 $currentDateTime = date('Y-m-d');
-echo $currentDateTime;
 
 function manageError($errorNumber, $errorString, $errorFile, $errorLine) {
     global $currentDateTime;
@@ -30,8 +29,9 @@ function manageError($errorNumber, $errorString, $errorFile, $errorLine) {
 }
 
 function manageException($exception) {
+    global $currentDateTime;
 
-    $detailedError = "An exception " . $exception->getCode() . "{" . $exception->getMessage() . "} occurred in the file " . $exception->getFile() . " at line " . $exception->getLine();
+    $detailedError = $currentDateTime . "An exception " . $exception->getCode() . "{" . $exception->getMessage() . "} occurred in the file " . $exception->getFile() . " at line " . $exception->getLine();
 
     if(DEBUGGING_MODE == true) {
         #for developers
@@ -74,7 +74,7 @@ define("COLLOCATION7", FOLDER_PICTURES . "collocation-7.jpeg");
 define("COLLOCATION8", FOLDER_PICTURES . "collocation-8.jpeg");
 define("COLLOCATION9", FOLDER_PICTURES . "collocation-9.jpeg");
 
-define("DATA_FOLDER", "./dataFile");
+define("DATA_FOLDER", "./dataFile/");
 define("DATA_FILE", DATA_FOLDER . "data.txt");
 
 
@@ -144,6 +144,39 @@ function pageBottom() {
         </html>
         
     <?php
+}
+
+function showTableData(){
+    if(file_exists(DATA_FILE)){
+
+        #open the file
+        $fileHandle = fopen(DATA_FILE,"r");#use r for Reading
+        
+        #read from a file
+        while(! feof($fileHandle)){
+
+        #in the project: read the file, decode the JSON string,
+        #use the array to fill the HTML table
+        $fileLine = fgets($fileHandle); #read a line in the file and put it in variable
+        
+            if(($fileLine)!=""){
+                $array = json_decode($fileLine);
+                echo "<tr>";
+                foreach ($array as $key => $value) {
+                    if($key == 0) {
+                        echo "<th scope='row'>".$value."</th>";
+                    } else {
+                        echo "<td>".$value."</td>";
+                    }   
+
+                }
+                echo "</tr>";
+            }
+        }
+        
+        #close the file
+        fclose($fileHandle);
+    }
 }
 
 

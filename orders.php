@@ -11,14 +11,21 @@
         <table class="table table-striped">
             <thead>
                 <tr>
-                <th scope="col">#</th>
-                <th scope="col">First</th>
-                <th scope="col">Last</th>
-                <th scope="col">Handle</th>
+                <th scope="col">Product Id</th>
+                <th scope="col">First Name</th>
+                <th scope="col">Last Name</th>
+                <th scope="col">City</th>
+                <th scope="col">Comment</th>
+                <th scope="col">Price</th>
+                <th scope="col">Quantity</th>
+                <th scope="col">Subtotal</th>
+                <th scope="col">Taxes</th>
+                <th scope="col">Grand Total</th>
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <?php showTableData(); ?>
+                <!-- <tr>
                 <th scope="row">1</th>
                 <td>Mark</td>
                 <td>Otto</td>
@@ -34,7 +41,7 @@
                 <th scope="row">3</th>
                 <td colspan="2">Larry the Bird</td>
                 <td>@twitter</td>
-                </tr>
+                </tr> -->
             </tbody>
         </table>
 

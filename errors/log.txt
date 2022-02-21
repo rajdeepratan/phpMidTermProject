@@ -1,44 +1,25 @@
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-null
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 12"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 12"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 12"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
-"An error 0{Class \"Date\" not found} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 10"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
-" - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
 "2022-02-18 - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
 "2022-02-18 - An error 2{Undefined array key \"command\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/orders.php at line 6"
+"2022-02-21 - An error 2{Undefined variable $currentDateTime} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 33"
+"2022-02-21 - An error 2{Undefined variable $currentDateTime} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 33"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
+"2022-02-21An exception 0{json_decode(): Argument #1 ($json) must be of type string, resource given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 154"
