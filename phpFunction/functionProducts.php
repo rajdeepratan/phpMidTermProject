@@ -165,6 +165,8 @@ function showTableData(){
                 foreach ($array as $key => $value) {
                     if($key == 0) {
                         echo "<th scope='row'>".$value."</th>";
+                    } else if ($key == 5 || $key == 7 || $key == 8 ||$key == 9) {
+                        echo "<td>".$value."$</td>";
                     } else {
                         echo "<td>".$value."</td>";
                     }   

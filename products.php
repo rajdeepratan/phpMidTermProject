@@ -1,28 +1,28 @@
 <?php
 
-include_once "./phpFunction/functionProducts.php";
+    include_once "./phpFunction/functionProducts.php";
 
-#variables
-$productCode = "";
-$firstName = "";
-$lastName = "";
-$city = "";
-$comment = "";
-$price = "";
-$quantity = "";
+    #variables
+    $productCode = "";
+    $firstName = "";
+    $lastName = "";
+    $city = "";
+    $comment = "";
+    $price = "";
+    $quantity = "";
 
-#error variables
-$errorOccurred = false;
-$errorProductCode = "";
-$errorFirstName = "";
-$errorLastName = "";
-$errorCity = "";
-$errorComment = "";
-$errorPrice = "";
-$errorQuantity = "";
+    #error variables
+    $errorOccurred = false;
+    $errorProductCode = "";
+    $errorFirstName = "";
+    $errorLastName = "";
+    $errorCity = "";
+    $errorComment = "";
+    $errorPrice = "";
+    $errorQuantity = "";
 
-#success variable
-$success = false;
+    #success variable
+    $success = false;
 
 #validate the posted date
 
@@ -44,7 +44,7 @@ $success = false;
         else {
             $productCode = htmlspecialchars($_POST["productCode"]);
         }
-
+        echo $_POST["firstName"];
         if(empty($_POST["firstName"])) {
             $errorOccurred = true;
             $errorFirstName = "Please enter the first name";
@@ -120,7 +120,7 @@ $success = false;
             $roundedTotal = round($grandTotal, 2);
 
             #save all the values in file
-            $data = array($productCode, $firstName, $lastName, $city, $price, $quantity, $comment, $subTotal, $taxesAmount, $roundedTotal);
+            $data = array($productCode, $firstName, $lastName, $city, $comment, $price, $quantity, $subTotal, $taxesAmount, $roundedTotal);
             $JSONdata = json_encode($data);
             file_put_contents(DATA_FILE, "$JSONdata\r\n", FILE_APPEND);
 
@@ -152,7 +152,7 @@ $success = false;
         <form action="products.php" method="POST">
             <div class="mb-3">
                 <label for="productCode" class="form-label">Product Code:</label>
-                <input type="text" class="form-control" name="productCode" id="productCode" value="<?php echo $productCode ?>" required />
+                <input type="text" class="form-control" name="productCode" id="productCode" value="<?php echo $productCode ?>" />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorProductCode)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorProductCode;
@@ -161,7 +161,7 @@ $success = false;
             </div>
             <div class="mb-3">
                 <label for="firstName" class="form-label">First Name:</label>
-                <input type="text" class="form-control" name="firstName" id="firstName" value="<?php echo $firstName ?>" required />
+                <input type="text" class="form-control" name="firstName" id="firstName" value="<?php echo $firstName ?>" />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorFirstName)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorFirstName;
@@ -170,7 +170,7 @@ $success = false;
             </div>
             <div class="mb-3">
                 <label for="lastName" class="form-label">Last Name:</label>
-                <input type="text" class="form-control" name="lastName" id="lastName" value="<?php echo $lastName ?>" required />
+                <input type="text" class="form-control" name="lastName" id="lastName" value="<?php echo $lastName ?>" />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorLastName)) echo "d-none" ?>" role="alert">
                    <?php 
                         echo $errorLastName;
@@ -179,7 +179,7 @@ $success = false;
             </div>
             <div class="mb-3">
                 <label for="city" class="form-label">City:</label>
-                <input type="text" class="form-control" name="city" id="city" value="<?php echo $city ?>" required />
+                <input type="text" class="form-control" name="city" id="city" value="<?php echo $city ?>" />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorCity)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorCity;
@@ -198,7 +198,7 @@ $success = false;
             </div>
             <div class="mb-3">
                 <label for="price" class="form-label">Price:</label>
-                <input type="text" class="form-control" name="price" id="price" value="<?php echo $price ?>" required/>
+                <input type="text" class="form-control" name="price" id="price" value="<?php echo $price ?>"/>
                 <div class="alert alert-danger mt-3 <?php if(empty($errorPrice)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorPrice;
@@ -207,7 +207,7 @@ $success = false;
             </div>
             <div class="mb-3">
                 <label for="quantity" class="form-label">Quantity:</label>
-                <input type="number" class="form-control" name="quantity" id="quantity" value="<?php echo $quantity ?>" required />
+                <input type="number" class="form-control" name="quantity" id="quantity" value="<?php echo $quantity ?>" />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorQuantity)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorQuantity;
