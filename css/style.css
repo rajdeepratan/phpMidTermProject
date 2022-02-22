@@ -1,3 +1,4 @@
+/* Menu Section */
 .nav-bar .logo-section {
     display: flex;
     justify-content: center;
@@ -7,22 +8,34 @@
     width: 20%;
 }
 
-.nav-bar .menu-list {
-    margin-top: 20px;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    /* margin-left: 20px; */
-}
-
 .nav-bar .menu-list a {
     margin-right: 20px;
 }
 
+/* Home Page */
 .home-page .red-border {
     border: 5px solid red;
 }
 
+/* Order Page */
+.print-screen {
+    background-color: white;
+    opacity: 0.3;
+}
+
+.red-text {
+    color: red !important;
+}
+
+.orange-text {
+    color: orange !important;
+}
+
+.green-text {
+    color: green !important;
+}
+
+/* Footer Section*/
 footer {
     background-color: black;
     color: white;
@@ -35,4 +48,15 @@ footer .copy-right {
 
 footer .copy-right span {
     color: #ecc12e;
+}
+
+html,
+body {
+    min-height: 100vh;
+}
+
+.home-page,
+.product-page,
+.order-page {
+    min-height: calc(100vh - 269px);
 }
