@@ -56,12 +56,17 @@ set_exception_handler("manageException");
 
 # define all the contacts
 define("LOCAL_TAXES", 13.45);
+
 define("FILE_INDEX", "index.php");
 define("FILE_PRODUCTS", "products.php");
 define("FILE_ORDERS", "orders.php");
 
 define("FOLDER_CSS", "./css/");
 define("FILE_CSS", FOLDER_CSS . "style.css");
+define("BOOTSTRAP_CSS", FOLDER_CSS . "bootstrap.min.css");
+
+define("FOLDER_JS", "./javascript/");
+define("BOOTSTRAP_JS", FOLDER_JS . "bootstrap.min.js");
 
 define("FOLDER_PICTURES", "./assets/images/");
 define("WEBSITE_LOGO", FOLDER_PICTURES . "logo.png");
@@ -97,10 +102,10 @@ function pageTop($pageTitle) {
             <meta charset="utf-8">
             <meta name="viewport" content="width=device-width, initial-scale=1">
             
-            <link rel="stylesheet" href="<?php echo FILE_CSS ?>"/>
+            <link rel="stylesheet" type="text/css" href="<?php echo FILE_CSS ?>"/>
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <!-- Bootstrap CSS -->
-            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-1BmE4kWBq78iYhFldvKuhfTAU6auU8tT94WrHftjDbrCEXSU1oBoqyl2QvZ6jIW3" crossorigin="anonymous">
+            <link href="<?php echo BOOTSTRAP_CSS ?>" rel="stylesheet" type="text/css">
 
 
             <title><?php echo $pageTitle; ?></title>
@@ -189,7 +194,7 @@ function pageBottom() {
                 <!-- Optional JavaScript; choose one of the two! -->
 
                 <!-- Option 1: Bootstrap Bundle with Popper -->
-                <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ka7Sk0Gln4gmtz2MlQnikT1wXgYsOg+OMhuP+IlRH9sENBO0LRn5q+8nbTov4+1p" crossorigin="anonymous"></script>
+                <script type="text/javascript" src="<?php echo BOOTSTRAP_JS ?>"></script>
 
                 <!-- Option 2: Separate Popper and Bootstrap JS -->
                 <!--
