@@ -77,6 +77,7 @@ define("COLLOCATION9", FOLDER_PICTURES . "collocation-9.jpeg");
 
 define("DATA_FOLDER", "./dataFile/");
 define("DATA_FILE", DATA_FOLDER . "data.txt");
+define("CHEAT_SHEET", DATA_FOLDER . "cheatSheet.docx");
 
 
 // Page Top Section
