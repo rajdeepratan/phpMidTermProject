@@ -1,6 +1,6 @@
 <?php
 
-define("DEBUGGING_MODE", true);
+define("DEBUGGING_MODE", false);
 define("FOLDER_ERROR", "./errors/");
 define("FILE_ERROR", FOLDER_ERROR ."log.txt");
 $currentDateTime = date('Y-m-d');
