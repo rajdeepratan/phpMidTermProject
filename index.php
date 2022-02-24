@@ -4,8 +4,9 @@
     pageTop("Index");
 
     $collocationArray = array(COLLOCATION1,COLLOCATION2,COLLOCATION3,COLLOCATION4,COLLOCATION5);
+    
+    #Shuffle an array
     shuffle($collocationArray);
-
 ?>
 
     <div class="home-page pt-5 pb-5">
@@ -25,6 +26,5 @@
     </div>
 
 <?php
-
     pageBottom();
 ?>

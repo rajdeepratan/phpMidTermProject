@@ -135,8 +135,6 @@
 
             #show success message
             $success = true;
-            // header('Location: orders.php');
-            // die();
         }
 
     }
