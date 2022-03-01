@@ -1,5 +1,4 @@
 <?php
-
     include_once "./phpFunction/functionProducts.php";
     pageTop("Orders");
     
@@ -15,11 +14,11 @@
                 <th scope="col">Last Name</th>
                 <th scope="col">City</th>
                 <th scope="col">Comment</th>
-                <th scope="col">Price</th>
-                <th scope="col">Quantity</th>
-                <th scope="col">Subtotal</th>
-                <th scope="col">Taxes</th>
-                <th scope="col">Grand Total</th>
+                <th scope="col" class="text-end">Price</th>
+                <th scope="col" class="text-end">Quantity</th>
+                <th scope="col" class="text-end">Subtotal</th>
+                <th scope="col" class="text-end">Taxes</th>
+                <th scope="col" class="text-end">Grand Total</th>
                 </tr>
             </thead>
             <tbody>

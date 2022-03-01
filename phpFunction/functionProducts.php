@@ -2,8 +2,8 @@
 
 define("DEBUGGING_MODE", false);
 define("FOLDER_ERROR", "./errors/");
-define("FILE_ERROR", FOLDER_ERROR ."log.txt");
-$currentDateTime = date('Y-m-d');
+define("FILE_ERROR", FOLDER_ERROR ."error.log");
+$currentDateTime = date('Y-m-d h:m:s');
 $curPageName = substr($_SERVER["SCRIPT_NAME"],strrpos($_SERVER["SCRIPT_NAME"],"/")+1);
 
 function manageError($errorNumber, $errorString, $errorFile, $errorLine) {
@@ -32,7 +32,7 @@ function manageError($errorNumber, $errorString, $errorFile, $errorLine) {
 function manageException($exception) {
     global $currentDateTime;
 
-    $detailedError = $currentDateTime . "An exception " . $exception->getCode() . "{" . $exception->getMessage() . "} occurred in the file " . $exception->getFile() . " at line " . $exception->getLine();
+    $detailedError = $currentDateTime . " - An exception " . $exception->getCode() . "{" . $exception->getMessage() . "} occurred in the file " . $exception->getFile() . " at line " . $exception->getLine();
 
     if(DEBUGGING_MODE == true) {
         #for developers
@@ -90,7 +90,6 @@ function pageTop($pageTitle) {
 
     global $curPageName;
 
-
     header('Expires: Sat, 03 Dec 1994 16:00:00 GMT');
     header('CacheControl: no-cache');
     header('Pragma: no-cache');
@@ -110,15 +109,7 @@ function pageTop($pageTitle) {
 
             <title><?php echo $pageTitle; ?></title>
         </head>
-        <body class="
-            <?php 
-                if($curPageName === FILE_ORDERS && isset($_GET["command"])) {
-                    if ($_GET["command"] == "print") {
-                        echo "print-screen";
-                    }
-                }
-            ?>
-        ">
+        <body>
             
     <?php
     navigationMenu();
@@ -130,7 +121,18 @@ function navigationMenu() {
     ?>  
         <div class="nav-bar">
             <div class="logo-section">
-                <img class="logo" src="<?php echo WEBSITE_LOGO ?>" alt="website-logo"/>
+                <img 
+                    class="logo
+                        <?php 
+                            if($curPageName === FILE_ORDERS && isset($_GET["command"])) {
+                                if ($_GET["command"] == "print") {
+                                    echo "print-screen";
+                                }
+                            }
+                        ?>
+                    "
+                    src="<?php echo WEBSITE_LOGO ?>" alt="website-logo"
+                />
             </div>
             <div>
                 <nav class="navbar navbar-expand-lg navbar-light bg-light">
@@ -202,6 +204,7 @@ function pageBottom() {
 
 // Order Page Show Table Data Section
 function showTableData(){
+    
     if(file_exists(DATA_FILE)){
 
         #open the file
@@ -221,19 +224,23 @@ function showTableData(){
                     if($key == 0) {
                         echo "<th scope='row'>".$value."</th>";
                     } else if ($key == 5 || $key == 7 || $key == 8 ||$key == 9) {
-                        echo "<td class=";
+                        ?>
+                        <td class="text-end 
+                            <?php
                         if($key == 7 && isset($_GET["command"])) {
                             if ($_GET["command"] == "color") {
                                 if($value < 100.00) {
-                                    echo "red-text";
+                                    echo " red-text";
                                 } else if ($value < 999.99) {
-                                    echo "orange-text";
+                                    echo " orange-text";
                                 } else {
-                                    echo "green-text";
+                                    echo " green-text";
                                 }
                             }
                         }
-                        echo ">".$value."$</td>";
+                        ?>"><?php echo $value."$</td>";
+                    } else if($key == 6) {
+                        echo "<td class=text-end>".$value."</td>";
                     } else {
                         echo "<td>".$value."</td>";
                     }   

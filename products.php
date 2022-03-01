@@ -44,7 +44,7 @@
         else {
             $productCode = htmlspecialchars($_POST["productCode"]);
         }
-        echo $_POST["firstName"];
+
         if(empty($_POST["firstName"])) {
             $errorOccurred = true;
             $errorFirstName = "Please enter the first name";
@@ -104,8 +104,10 @@
         }
         
         if(empty($_POST["quantity"])) {
+            $errorOccurred = true;
             $errorQuantity = "Please enter the quantity";
         } else if ($_POST["quantity"] < 1 && $_POST["quantity"] > 99) {
+            $errorOccurred = true;
             $errorQuantity = "Quantity should be between 1 to 99";
         } else {
             $quantity = htmlspecialchars($_POST["quantity"]);
@@ -134,6 +136,7 @@
             $quantity = 0;
 
             #show success message
+            // echo "<meta http-equiv='refresh'content='0'>";
             $success = true;
         }
 
@@ -220,36 +223,6 @@
 
     </div>
 
-
-
-
-<!-- $products = array("Computers", "Cell phones", "Printers", "Mouse");
-
-echo "<ul>";
-
-
-for($index=0; $index < count($products); $index++) {
-     echo "<li>". $products[$index] ."</li>";
- }
-
- echo "</ul>";
-
- createComboBoxFunction($products);
-
- function createComboBoxFunction($array) {
-     #open the comboBox tag
-     echo "<select>";
-
-     #loop in the array
-     for($index=0; $index < count($array); $index++) {
-         echo "<option>". $array[$index] ."</option>";
-     }
-
-     echo "</select>";
- #open the comboBox tag
- } -->
-
 <?php
-
     pageBottom();
 ?>
