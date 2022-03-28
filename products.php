@@ -2,6 +2,8 @@
 
     include_once "./phpFunction/functionProducts.php";
 
+    pdoFunction("SELECT firstname FROM employees WHERE username = :myusername AND password = :mypassword");
+
     #variables
     $productCode = "";
     $firstName = "";

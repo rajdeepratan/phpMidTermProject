@@ -1,6 +1,6 @@
 <?php
 
-define("DEBUGGING_MODE", false);
+define("DEBUGGING_MODE", TRUE);
 define("FOLDER_ERROR", "./errors/");
 define("FILE_ERROR", FOLDER_ERROR ."error.log");
 $currentDateTime = date('Y-m-d h:m:s');
@@ -60,6 +60,7 @@ define("LOCAL_TAXES", 13.45);
 define("FILE_INDEX", "index.php");
 define("FILE_PRODUCTS", "products.php");
 define("FILE_ORDERS", "orders.php");
+define("FILE_REGISTER", "register.php");
 
 define("FOLDER_CSS", "./css/");
 define("FILE_CSS", FOLDER_CSS . "style.css");
@@ -141,42 +142,52 @@ function navigationMenu() {
                         <span class="navbar-toggler-icon"></span>
                         </button>
                         <div class="collapse navbar-collapse" id="navbarNav">
-                        <ul class="navbar-nav">
-                            <li class="nav-item">
-                                <a 
-                                    class="nav-link 
-                                        <?php if($curPageName === FILE_INDEX)
-                                            echo "active";
-                                        ?>"
-                                    aria-current="page" 
-                                    href="<?php echo FILE_INDEX ?>"
-                                >
-                                    Home
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a 
-                                    class="nav-link 
-                                        <?php if($curPageName === FILE_PRODUCTS)
-                                            echo "active";
-                                        ?>"
-                                    href="<?php echo FILE_PRODUCTS ?>"
-                                >
-                                    Products
-                                </a>
-                            </li>
-                            <li class="nav-item">
-                                <a
-                                    class="nav-link 
-                                        <?php if($curPageName === FILE_ORDERS)
-                                            echo "active";
-                                        ?>"
-                                    href="<?php echo FILE_ORDERS ?>"
-                                >
-                                    Orders
-                                </a>
-                            </li>
-                        </ul>
+                            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+                                <li class="nav-item">
+                                    <a 
+                                        class="nav-link 
+                                            <?php if($curPageName === FILE_INDEX)
+                                                echo "active";
+                                            ?>"
+                                        aria-current="page" 
+                                        href="<?php echo FILE_INDEX ?>"
+                                    >
+                                        Home
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a 
+                                        class="nav-link 
+                                            <?php if($curPageName === FILE_PRODUCTS)
+                                                echo "active";
+                                            ?>"
+                                        href="<?php echo FILE_PRODUCTS ?>"
+                                    >
+                                        Products
+                                    </a>
+                                </li>
+                                <li class="nav-item">
+                                    <a
+                                        class="nav-link 
+                                            <?php if($curPageName === FILE_ORDERS)
+                                                echo "active";
+                                            ?>"
+                                        href="<?php echo FILE_ORDERS ?>"
+                                    >
+                                        Orders
+                                    </a>
+                                </li>
+                            </ul>
+                            <a 
+                                class="nav-link 
+                                    <?php if($curPageName === FILE_REGISTER)
+                                        echo "active";
+                                    ?>"
+                                aria-current="page" 
+                                href="<?php echo FILE_REGISTER ?>"
+                            >
+                                SignUp
+                            </a>
                         </div>
                     </div>
                 </nav>
@@ -253,4 +264,47 @@ function showTableData(){
         #close the file
         fclose($fileHandle);
     }
+}
+
+
+// PDO Function
+function pdoFunction($sql) {
+
+    $connection = new PDO("mysql:host=localhost;dbname=first_db", 'root', '');
+
+    #to raise an exception when there is an error in your sql queries
+    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+
+    #to protect my code against SQL injection
+    $connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
+
+    #From employees WHERE
+    
+    
+    echo $sql . "<br>";
+    
+    // #execute the SQL statement
+    return $connection->prepare($sql);
+
+    #bind the parameter
+    // $PDOobject->bindParam(":myusername", $_POST["username"]);
+    // $PDOobject->bindParam(":mypassword", $_POST["password"]);
+
+    // $PDOobject->execute();
+    // $firstName="";
+
+
+    #loop in all the returned resultset (rows)
+    #foreach($PDOobject as $row)
+    // while($row = $PDOobject->fetch()) {
+    //     $firstName = $row['firstname'];
+    //     echo "<br>Welcome " . $firstName;
+    // }
+
+    #after looping in the results, check if we fount a roq
+    // if($firstName == ""){
+    //     echo "You are NOT connected to the website";
+    // }
+    #close the connection
+    // $connection = null;
 }

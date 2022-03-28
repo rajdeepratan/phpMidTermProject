@@ -50,3 +50,8 @@
 "2022-02-28 - An error 2{foreach() argument must be of type array|object, null given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 224"
 "2022-02-28 - An error 2{foreach() argument must be of type array|object, null given} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 224"
 "2022-03-01 06:03:54 - An error 2{Undefined variable $currentDateTime} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/phpFunction\/functionProducts.php at line 93"
+"2022-03-28 08:03:22 - An error 2{Undefined array key \"profilePicture\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/register.php at line 116"
+"2022-03-28 08:03:39 - An error 2{Undefined array key \"profilePicture\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/register.php at line 116"
+"2022-03-28 08:03:54 - An error 2{Undefined array key \"profilePicture\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/register.php at line 116"
+"2022-03-28 08:03:08 - An error 2{Undefined array key \"profilePicture\"} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/register.php at line 116"
+"2022-03-28 08:03:33 - An error 2{Array to string conversion} occurred in the file \/Applications\/XAMPP\/xamppfiles\/htdocs\/phpMidTermProject\/register.php at line 116"
