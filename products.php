@@ -2,14 +2,11 @@
 
     include_once "./phpFunction/functionProducts.php";
 
-    pdoFunction("SELECT firstname FROM employees WHERE username = :myusername AND password = :mypassword");
+    $data = pdoFunction("CALL select_all_product()");
+
 
     #variables
     $productCode = "";
-    $firstName = "";
-    $lastName = "";
-    $city = "";
-    $comment = "";
     $price = "";
     $quantity = "";
 
@@ -143,11 +140,7 @@
         }
 
     }
-?>
 
-
-
-<?php
     pageTop("Products");
 ?>
 
@@ -155,40 +148,20 @@
         <form action="products.php" method="POST">
             <div class="mb-3">
                 <label for="productCode" class="form-label">Product Code:</label>
-                <input type="text" class="form-control" name="productCode" id="productCode" value="<?php echo $productCode ?>" />
+                <select class="form-select" aria-label="product details">
+                    <?php
+                        while($row = $data->fetch()) {
+                        echo "<option value=".$row['productId'].">".$row['productCode']." - ".$row['productDescription']." (".$row['productRetailPrice']. "$)</option>";
+                        }
+                    ?>
+                </select>
                 <div class="alert alert-danger mt-3 <?php if(empty($errorProductCode)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorProductCode;
                     ?>
                 </div>
             </div>
-            <div class="mb-3">
-                <label for="firstName" class="form-label">First Name:</label>
-                <input type="text" class="form-control" name="firstName" id="firstName" value="<?php echo $firstName ?>" />
-                <div class="alert alert-danger mt-3 <?php if(empty($errorFirstName)) echo "d-none" ?>" role="alert">
-                    <?php 
-                        echo $errorFirstName;
-                    ?>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="lastName" class="form-label">Last Name:</label>
-                <input type="text" class="form-control" name="lastName" id="lastName" value="<?php echo $lastName ?>" />
-                <div class="alert alert-danger mt-3 <?php if(empty($errorLastName)) echo "d-none" ?>" role="alert">
-                   <?php 
-                        echo $errorLastName;
-                    ?>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="city" class="form-label">City:</label>
-                <input type="text" class="form-control" name="city" id="city" value="<?php echo $city ?>" />
-                <div class="alert alert-danger mt-3 <?php if(empty($errorCity)) echo "d-none" ?>" role="alert">
-                    <?php 
-                        echo $errorCity;
-                    ?>
-                </div>
-            </div>
+            
             <div class="mb-3">
                 <label for="comment" class="form-label">Comment:</label>
                 <textarea class="form-control" name="comment" id="comment" rows="5"><?php echo $comment ?></textarea>
@@ -196,15 +169,6 @@
                 <div class="alert alert-danger mt-3 <?php if(empty($errorComment)) echo "d-none" ?>" role="alert">
                     <?php 
                         echo $errorComment;
-                    ?>
-                </div>
-            </div>
-            <div class="mb-3">
-                <label for="price" class="form-label">Price:</label>
-                <input type="text" class="form-control" name="price" id="price" value="<?php echo $price ?>"/>
-                <div class="alert alert-danger mt-3 <?php if(empty($errorPrice)) echo "d-none" ?>" role="alert">
-                    <?php 
-                        echo $errorPrice;
                     ?>
                 </div>
             </div>

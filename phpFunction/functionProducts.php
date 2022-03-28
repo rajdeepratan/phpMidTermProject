@@ -270,34 +270,31 @@ function showTableData(){
 // PDO Function
 function pdoFunction($sql) {
 
-    $connection = new PDO("mysql:host=localhost;dbname=first_db", 'root', '');
+    $connection = new PDO("mysql:host=localhost;dbname=database_2110167", 'root', '');
 
     #to raise an exception when there is an error in your sql queries
     $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 
     #to protect my code against SQL injection
     $connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-
-    #From employees WHERE
     
-    
-    echo $sql . "<br>";
     
     // #execute the SQL statement
-    return $connection->prepare($sql);
+    $PDOobject = $connection->prepare($sql);
 
     #bind the parameter
     // $PDOobject->bindParam(":myusername", $_POST["username"]);
     // $PDOobject->bindParam(":mypassword", $_POST["password"]);
 
-    // $PDOobject->execute();
-    // $firstName="";
+    $PDOobject->execute();
 
+
+    return $PDOobject;
 
     #loop in all the returned resultset (rows)
     #foreach($PDOobject as $row)
     // while($row = $PDOobject->fetch()) {
-    //     $firstName = $row['firstname'];
+    //     $firstName = $row['productCode'];
     //     echo "<br>Welcome " . $firstName;
     // }
 
