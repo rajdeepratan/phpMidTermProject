@@ -12,7 +12,7 @@
     $postalCode = "";
     $userName = "";
     $password = "";
-    $profilePicture = "";
+    $profilePicture = null;
 
     #error variables
     $errorOccurred = false;
@@ -31,6 +31,8 @@
 
     #check if the user clicked the submit button
     if(isset($_POST["submitButton"])) {
+
+        // $errorFirstName = $customer->setFirstName($_POST["firstName"]);
 
         #variable validation and save the POSTed data into a variables
         if(empty($_POST["firstName"])) {
@@ -110,24 +112,48 @@
             $errorOccurred = true;
             $errorPassword = "Password can not be more than 255 characters";
         } else {
-            $password = htmlspecialchars($_POST["password"]);
+            $userPassword = htmlspecialchars($_POST["password"]);
+            $password = password_hash($userPassword, PASSWORD_DEFAULT);
         }
 
-        // echo empty($_FILES["profilePicture"]);
-        if(empty($_FILES["profilePicture"])) {
-            $errorOccurred = true;
-            $errorProfilePicture = "Please upload your picture";
-        } else if ((($_FILES["profilePicture"]["type"] == "image/gif") || ($_FILES["profilePicture"]["type"] == "image/jpeg") || ($_FILES["profilePicture"]["type"] == "image/png")  || ($_FILES["profilePicture"]["type"] == "image/pjpeg")) && ($_FILES["profilePicture"]["size"] < 16000000)) {
-            // $profilePicture = 
+        if($_FILES["profilePicture"]["error"] == UPLOAD_ERR_OK && is_uploaded_file($_FILES["profilePicture"]['tmp_name'])) {
+
+            if(($_FILES["profilePicture"]["type"] == "image/gif") 
+                || ($_FILES["profilePicture"]["type"] == "image/jpeg")
+                || ($_FILES["profilePicture"]["type"] == "image/png")
+                || ($_FILES["profilePicture"]["type"] == "image/pjpeg")) 
+            {
+                $profilePicture = file_get_contents($_FILES["profilePicture"]["tmp_name"]);
+            } else if($_FILES["profilePicture"]["size"] > 16000000) {
+                $errorOccurred = true;
+                $errorProfilePicture = "File size can not be more than 16MB";
+            } else if($_FILES["profilePicture"]["size"] === 0) {
+                $errorOccurred = true;
+                $errorProfilePicture = "File size can not be zero";
+            } else {
+                $errorOccurred = true;
+                $errorProfilePicture = "Only upload image file with gif, jpeg, png or pjpeg type.";
+            }
         } else {
             $errorOccurred = true;
-            $errorProfilePicture = "Only upload image file with gif, jpeg, png or pjpeg type.";
+            $errorProfilePicture = "Please upload the file";
         }
-        // else if(mb_strlen($_POST["password"]) > 255) {
-        //     $errorOccurred = true;
-        //     $errorProfilePicture = "Password can not be more than 255 characters";
-        // } else {
-        //     $profilePicture = htmlspecialchars($_POST["password"]);
+
+        // if($errorOccurred == false) { 
+            // $finalData = {
+            //     'firstName' => $firstName
+            //     // 'lastName' => $lastName,
+            //     // 'address' => $address,
+            //     // 'city' => $city,
+            //     // 'province' => $province,
+            //     // 'postalCode' => $postalCode,
+            //     // 'userName' => $userName,
+            //     // 'password' => $password,
+            //     // 'profilePicture' => $profilePicture
+            // };
+            // $arry  = (array) $finalData;
+            // echo $finalData;
+            // $registerUser = pdoFunction("CALL insert_customer(?,?,?,?,?,?,?,?)", $finalData);
         // }
 
     }
@@ -135,7 +161,7 @@
 ?>
 
     <div class="register-page pt-5 pb-5">
-        <form action="register.php" method="POST" enctype="multipart/form-data">
+        <form action='<?php echo $_SERVER["PHP_SELF"] ?>' method="POST" enctype="multipart/form-data">
             <div class="row">
                 <div class="col-md-6">
                     <label for="firstName" class="form-label">First Name</label>
@@ -206,7 +232,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="password" class="form-label">Password</label>
-                    <input type="text" class="form-control" name="password" id="password" />
+                    <input type="password" class="form-control" name="password" id="password" />
                     <div class="alert alert-danger mt-3 <?php if(empty($errorPassword)) echo "d-none" ?>" role="alert">
                         <?php 
                             echo $errorPassword;
