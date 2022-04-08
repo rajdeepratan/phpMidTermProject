@@ -1,18 +1,13 @@
 <?php
+
+    require_once "./class/customer.php";
+    
     include_once "./phpFunction/functionProducts.php";
 
     pageTop("Index");
 
-    #variables
-    $firstName = "";
-    $lastName = "";
-    $address = "";
-    $city = "";
-    $province = "";
-    $postalCode = "";
-    $userName = "";
-    $password = "";
-    $profilePicture = null;
+    #create customer class object
+    $customer = new customer();
 
     #error variables
     $errorOccurred = false;
@@ -27,135 +22,56 @@
     $errorProfilePicture = "";
 
     #success variable
-    $success = false;
+    $success = "";
 
     #check if the user clicked the submit button
     if(isset($_POST["submitButton"])) {
-
-        // $errorFirstName = $customer->setFirstName($_POST["firstName"]);
+        
 
         #variable validation and save the POSTed data into a variables
-        if(empty($_POST["firstName"])) {
+        $errorFirstName = $customer->setFirstName($_POST["firstName"]);
+        $errorLastName = $customer->setLastName($_POST["lastName"]);
+        $errorAddress = $customer->setAddress($_POST["address"]);
+        $errorCity = $customer->setCity($_POST["city"]);
+        $errorProvince = $customer->setProvince($_POST["province"]);
+        $errorPostalCode = $customer->setPostalCode($_POST["postalCode"]);
+        $errorUserName = $customer->setUserName($_POST["userName"]);
+        $errorPassword = $customer->setPassword($_POST["password"]);
+        $errorProfilePicture = $customer->setPicture("profilePicture");
+
+        #error occurred
+        if($errorFirstName) {
             $errorOccurred = true;
-            $errorFirstName = "Please enter your first name";
-        } else if(mb_strlen($_POST["firstName"]) > 20) {
+        }
+        if($errorLastName) {
             $errorOccurred = true;
-            $errorFirstName = "First name can not be more than 20 characters";
-        } else {
-            $firstName = htmlspecialchars($_POST["firstName"]);
+        }
+        if($errorAddress) {
+            $errorOccurred = true;
+        }
+        if($errorCity) {
+            $errorOccurred = true;
+        }
+        if($errorProvince) {
+            $errorOccurred = true;
+        }
+        if($errorPostalCode) {
+            $errorOccurred = true;
+        }
+        if($errorUserName) {
+            $errorOccurred = true;
+        }
+        if($errorPassword) {
+            $errorOccurred = true;
+        }
+        if($errorProfilePicture) {
+            $errorOccurred = true;
         }
 
-        if(empty($_POST["lastName"])) {
-            $errorOccurred = true;
-            $errorLastName = "Please enter your last name";
-        } else if(mb_strlen($_POST["lastName"]) > 20) {
-            $errorOccurred = true;
-            $errorLastName = "Last name can not be more than 20 characters";
-        } else {
-            $lastName = htmlspecialchars($_POST["lastName"]);
+        if($errorOccurred == false) { 
+           $success = $customer->save();
         }
-
-        if(empty($_POST["address"])) {
-            $errorOccurred = true;
-            $errorAddress = "Please enter your address";
-        } else if(mb_strlen($_POST["address"]) > 25) {
-            $errorOccurred = true;
-            $errorAddress = "Address can not be more than 25 characters";
-        } else {
-            $address = htmlspecialchars($_POST["address"]);
-        }
-
-        if(empty($_POST["city"])) {
-            $errorOccurred = true;
-            $errorCity = "Please enter your city name";
-        } else if(mb_strlen($_POST["city"]) > 25) {
-            $errorOccurred = true;
-            $errorCity = "City name can not be more than 25 characters";
-        } else {
-            $city = htmlspecialchars($_POST["city"]);
-        }
-
-        if(empty($_POST["province"])) {
-            $errorOccurred = true;
-            $errorProvince = "Please enter your province name";
-        } else if(mb_strlen($_POST["province"]) > 25) {
-            $errorOccurred = true;
-            $errorProvince = "Province name can not be more than 25 characters";
-        } else {
-            $province = htmlspecialchars($_POST["province"]);
-        }
-
-        if(empty($_POST["postalCode"])) {
-            $errorOccurred = true;
-            $errorPostalCode = "Please enter your postal code";
-        } else if(mb_strlen($_POST["postalCode"]) > 7) {
-            $errorOccurred = true;
-            $errorPostalCode = "Postal code can not be more than 7 characters";
-        } else {
-            $postalCode = htmlspecialchars($_POST["postalCode"]);
-        }
-
-        if(empty($_POST["userName"])) {
-            $errorOccurred = true;
-            $errorUserName = "Please enter your postal code";
-        } else if(mb_strlen($_POST["userName"]) > 15) {
-            $errorOccurred = true;
-            $errorUserName = "User name can not be more than 15 characters";
-        } else {
-            $userName = htmlspecialchars($_POST["userName"]);
-        }
-
-        if(empty($_POST["password"])) {
-            $errorOccurred = true;
-            $errorPassword = "Please enter your postal code";
-        } else if(mb_strlen($_POST["password"]) > 255) {
-            $errorOccurred = true;
-            $errorPassword = "Password can not be more than 255 characters";
-        } else {
-            $userPassword = htmlspecialchars($_POST["password"]);
-            $password = password_hash($userPassword, PASSWORD_DEFAULT);
-        }
-
-        if($_FILES["profilePicture"]["error"] == UPLOAD_ERR_OK && is_uploaded_file($_FILES["profilePicture"]['tmp_name'])) {
-
-            if(($_FILES["profilePicture"]["type"] == "image/gif") 
-                || ($_FILES["profilePicture"]["type"] == "image/jpeg")
-                || ($_FILES["profilePicture"]["type"] == "image/png")
-                || ($_FILES["profilePicture"]["type"] == "image/pjpeg")) 
-            {
-                $profilePicture = file_get_contents($_FILES["profilePicture"]["tmp_name"]);
-            } else if($_FILES["profilePicture"]["size"] > 16000000) {
-                $errorOccurred = true;
-                $errorProfilePicture = "File size can not be more than 16MB";
-            } else if($_FILES["profilePicture"]["size"] === 0) {
-                $errorOccurred = true;
-                $errorProfilePicture = "File size can not be zero";
-            } else {
-                $errorOccurred = true;
-                $errorProfilePicture = "Only upload image file with gif, jpeg, png or pjpeg type.";
-            }
-        } else {
-            $errorOccurred = true;
-            $errorProfilePicture = "Please upload the file";
-        }
-
-        // if($errorOccurred == false) { 
-            // $finalData = {
-            //     'firstName' => $firstName
-            //     // 'lastName' => $lastName,
-            //     // 'address' => $address,
-            //     // 'city' => $city,
-            //     // 'province' => $province,
-            //     // 'postalCode' => $postalCode,
-            //     // 'userName' => $userName,
-            //     // 'password' => $password,
-            //     // 'profilePicture' => $profilePicture
-            // };
-            // $arry  = (array) $finalData;
-            // echo $finalData;
-            // $registerUser = pdoFunction("CALL insert_customer(?,?,?,?,?,?,?,?)", $finalData);
-        // }
-
+    
     }
 
 ?>
@@ -165,7 +81,7 @@
             <div class="row">
                 <div class="col-md-6">
                     <label for="firstName" class="form-label">First Name</label>
-                    <input type="text" class="form-control" name="firstName" id="firstName" />
+                    <input type="text" class="form-control" name="firstName" id="firstName" value="<?php echo $customer->getFirstName(); ?>" />
                     <div class="alert alert-danger mt-3 <?php if(empty($errorFirstName)) echo "d-none" ?>" role="alert">
                         <?php 
                             echo $errorFirstName;
@@ -174,7 +90,7 @@
                 </div>
                 <div class="col-md-6">
                     <label for="lastName" class="form-label">Last Name</label>
-                    <input type="text" class="form-control" name="lastName" id="lastName" />
+                    <input type="text" class="form-control" name="lastName" id="lastName" value="<?php echo $customer->getLastName(); ?>" />
                     <div class="alert alert-danger mt-3 <?php if(empty($errorLastName)) echo "d-none" ?>" role="alert">
                         <?php 
                             echo $errorLastName;
@@ -184,7 +100,7 @@
             </div>
             <div class="mb-3">
                 <label for="address" class="form-label">Address</label>
-                <input type="text" class="form-control" name="address" id="address" />
+                <input type="text" class="form-control" name="address" id="address" value="<?php echo $customer->getAddress(); ?>" />
                 <div class="alert alert-danger mt-3 <?php if(empty($errorAddress)) echo "d-none" ?>" role="alert">
                         <?php 
                             echo $errorAddress;
@@ -194,7 +110,7 @@
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="city" class="form-label">City</label>
-                    <input type="text" class="form-control" name="city" id="city" />
+                    <input type="text" class="form-control" name="city" id="city" value="<?php echo $customer->getCity(); ?>" />
                     <div class="alert alert-danger mt-3 <?php if(empty($errorCity)) echo "d-none" ?>" role="alert">
                         <?php 
                             echo $errorCity;
@@ -203,7 +119,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="province" class="form-label">Province</label>
-                    <input type="text" class="form-control" name="province" id="province" />
+                    <input type="text" class="form-control" name="province" id="province" value="<?php echo $customer->getProvince(); ?>" />
                     <div class="alert alert-danger mt-3 <?php if(empty($errorProvince)) echo "d-none" ?>" role="alert">
                         <?php 
                             echo $errorProvince;
@@ -212,7 +128,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="postalCode" class="form-label">Postal Code</label>
-                    <input type="text" class="form-control" name="postalCode" id="postalCode" />
+                    <input type="text" class="form-control" name="postalCode" id="postalCode" value="<?php echo $customer->getPostalCode(); ?>" />
                     <div class="alert alert-danger mt-3 <?php if(empty($errorPostalCode)) echo "d-none" ?>" role="alert">
                         <?php 
                             echo $errorPostalCode;
@@ -223,7 +139,7 @@
             <div class="row mb-3">
                 <div class="col-md-4">
                     <label for="userName" class="form-label">User Name</label>
-                    <input type="text" class="form-control" name="userName" id="userName" />
+                    <input type="text" class="form-control" name="userName" id="userName" value="<?php echo $customer->getUserName(); ?>" />
                     <div class="alert alert-danger mt-3 <?php if(empty($errorUserName)) echo "d-none" ?>" role="alert">
                         <?php 
                             echo $errorUserName;
@@ -232,7 +148,7 @@
                 </div>
                 <div class="col-md-4">
                     <label for="password" class="form-label">Password</label>
-                    <input type="password" class="form-control" name="password" id="password" />
+                    <input type="password" class="form-control" name="password" id="password" value="<?php echo $customer->getPassword(); ?>" />
                     <div class="alert alert-danger mt-3 <?php if(empty($errorPassword)) echo "d-none" ?>" role="alert">
                         <?php 
                             echo $errorPassword;
@@ -251,6 +167,11 @@
             </div>
             <div class="text-center">
                 <input type="submit" class="btn btn-primary" name="submitButton" value="Register" />
+            </div>
+            <div class="text-center alert alert-success mt-3 <?php if(empty($success)) echo "d-none" ?>" role="alert">
+                <?php 
+                    echo $success;
+                ?>
             </div>
         </form>
     </div>
