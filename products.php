@@ -1,34 +1,32 @@
 <?php
 
+    require_once "./class/collection.php";
+    require_once "./class/product/product.php";
+    require_once "./class/product/products.php";
+
     include_once "./phpFunction/functionProducts.php";
 
-    $data = pdoFunction("CALL select_all_product()");
-
+    $productsList = new products();
 
     #variables
     $productCode = "";
-    $price = "";
+    $comment = "";
     $quantity = "";
 
     #error variables
     $errorOccurred = false;
     $errorProductCode = "";
-    $errorFirstName = "";
-    $errorLastName = "";
-    $errorCity = "";
     $errorComment = "";
-    $errorPrice = "";
     $errorQuantity = "";
 
     #success variable
     $success = false;
 
-#validate the posted date
-
     #check if the user clicked the submit button
     if(isset($_POST["submitButton"])) {
 
         #variable Validation and save the POSTed data into a variable
+        var_dump($_POST["productCode"]);
         if(empty($_POST["productCode"])) {
             $errorOccurred = true;
             $errorProductCode = "Please enter the product code";
@@ -44,36 +42,6 @@
             $productCode = htmlspecialchars($_POST["productCode"]);
         }
 
-        if(empty($_POST["firstName"])) {
-            $errorOccurred = true;
-            $errorFirstName = "Please enter the first name";
-        } else if (mb_strlen($_POST["firstName"]) > 20) {
-            $errorOccurred = true;
-            $errorFirstName = "First name can not be more than 20 characters";
-        } else {
-            $firstName = htmlspecialchars($_POST["firstName"]);
-        }
-
-        if(empty($_POST["lastName"])) {
-            $errorOccurred = true;
-            $errorLastName = "Please enter the last name";
-        } else if (mb_strlen($_POST["lastName"]) > 20) {
-            $errorOccurred = true;
-            $errorLastName = "Last name can not be more than 20 characters";
-        } else {
-            $lastName = htmlspecialchars($_POST["lastName"]);
-        }
-
-        if(empty($_POST["city"])) {
-            $errorOccurred = true;
-            $errorCity = "Please enter city name";
-        } else if (mb_strlen($_POST["city"]) > 8) {
-            $errorOccurred = true;
-            $errorCity = "City name can not be more than 8 characters";
-        } else {
-            $city = htmlspecialchars($_POST["city"]);
-        }
-
         if(mb_strlen($_POST["comment"]) > 0){
             if (mb_strlen($_POST["comment"]) > 200) {
                 $errorOccurred = true;
@@ -81,25 +49,6 @@
             } else {
                 $comment = htmlspecialchars($_POST["comment"]);
             }
-        }
-
-        if(empty($_POST["price"])) {
-            $errorOccurred = true;
-            $errorPrice = "Please enter the price";
-        } else if (is_numeric($_POST["price"]) || is_float($_POST["price"])) {
-            $floatPrice = (float) $_POST["price"];
-            if($floatPrice > 10000) {
-                $errorOccurred = true;
-                $errorPrice = "Price can not be higher than 10,000.00$";
-
-            } else {
-                $price = htmlspecialchars($_POST["price"]);
-            }
-        } 
-        else {
-            $errorOccurred = true;
-            $errorPrice = "Price can not be higher than 10,000.00$";
-
         }
         
         if(empty($_POST["quantity"])) {
@@ -121,17 +70,13 @@
             $roundedTotal = round($grandTotal, 2);
 
             #save all the values in file
-            $data = array($productCode, $firstName, $lastName, $city, $comment, $price, $quantity, $subTotal, $taxesAmount, $roundedTotal);
+            // $data = array($productCode, $firstName, $lastName, $city, $comment, $price, $quantity, $subTotal, $taxesAmount, $roundedTotal);
             $JSONdata = json_encode($data);
             file_put_contents(DATA_FILE, "$JSONdata\r\n", FILE_APPEND);
 
             # clear all the variables
             $productCode = "";
-            $firstName = "";
-            $lastName = "";
-            $city = "";
             $comment = "";
-            $price = 0;
             $quantity = 0;
 
             #show success message
@@ -148,10 +93,11 @@
         <form action="products.php" method="POST">
             <div class="mb-3">
                 <label for="productCode" class="form-label">Product Code:</label>
-                <select class="form-select" aria-label="product details">
+                <select class="form-select" aria-label="product details" name="productCode" id="productCode">
+                    <option value="" disabled selected hidden>Select the product</option>
                     <?php
-                        while($row = $data->fetch()) {
-                        echo "<option value=".$row['productId'].">".$row['productCode']." - ".$row['productDescription']." (".$row['productRetailPrice']. "$)</option>";
+                        foreach($productsList->items as $product) {
+                            echo "<option value=".$product->getProductId().">".$product->getProductCode()." - ".$product->getProductDescription()." (".$product->getProductRetailPrice(). "$)</option>";
                         }
                     ?>
                 </select>
