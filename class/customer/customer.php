@@ -24,7 +24,7 @@
         public function getCustomerId() {
             return $this->customerId;
         }
-        protected function setCustomerId($firstName) {
+        protected function setCustomerId($customerId) {
             $this->customerId = $customerId;
             return null;
         }
@@ -33,15 +33,14 @@
             return $this->firstName;
         }
         public function setFirstName($firstName) {
-            $this->firstName = htmlspecialchars($firstName);
-            // if(empty($firstName)) {
-            //     return "The first name is empty";
-            // } else if(mb_strlen($firstName) > self::NAME_MAX_LENGTH) {
-            //     return "This first name is greater than 20 char";
-            // } else {
-            //     $this->firstName = htmlspecialchars($firstName);
-            //     return null;
-            // }
+            if(empty($firstName)) {
+                return "The first name is empty";
+            } else if(mb_strlen($firstName) > self::NAME_MAX_LENGTH) {
+                return "This first name is greater than 20 char";
+            } else {
+                $this->firstName = htmlspecialchars($firstName);
+                return null;
+            }
         }
 
         public function getLastName() {
@@ -119,9 +118,9 @@
         }
         public function setUserName($userName) {
             if(empty($userName)) {
-                return "The userName is empty";
+                return "The user name is empty";
             } else if(mb_strlen($userName) > self::USERNAME_MAX_LENGTH) {
-                return "This userName is greater than 15 char";
+                return "The user name can not be greater than 15 char";
             } else {
                 $this->userName = htmlspecialchars($userName);
                 return null;
@@ -135,7 +134,7 @@
             if(empty($password)) {
                 return "The password is empty";
             } else if(mb_strlen($password) > self::PASSWORD_MAX_LENGTH) {
-                return "This password is greater than 255 char";
+                return "This password can not greater than 255 char";
             } else {
                 $userPassword = htmlspecialchars($password);
                 $this->password = password_hash($userPassword, PASSWORD_DEFAULT);
@@ -168,25 +167,24 @@
             }
         }
 
-        public function __construct() {
+        public function __construct($customerId = "", $firstName = "", $lastName = "", $address = "", $city = "", $province = "", $postalCode = "", $userName = "", $password = "", $picture = "") {
+            
+                if($customerId && $firstName && $lastName && $address && $city && $province && $postalCode && $userName && $password && $picture) {
+                    $this->setCustomerId($customerId);
+                    $this->setFirstName($firstName);
+                    $this->setLastName($lastName);
+                    $this->setAddress($address);
+                    $this->setCity($city);
+                    $this->setProvince($province);
+                    $this->setPostalCode($postalCode);
+                    $this->setFirstName($userName);
+                    $this->setFirstName($password);
+                    $this->setFirstName($picture);
+                }
 
         }
 
-        // public function __construct($firstName, $lastName, $address, $city, $province, $postalCode, $userName, $password, $picture) {
-            
-        //     $this->setFirstName($firstName);
-        //     $this->setLastName($lastName);
-        //     $this->setAddress($address);
-        //     $this->setCity($city);
-        //     $this->setProvince($province);
-        //     $this->setPostalCode($postalCode);
-        //     $this->setFirstName($userName);
-        //     $this->setFirstName($password);
-        //     $this->setFirstName($picture);
-
-        // }
-
-        public function save() {
+        public function createCustomer() {
             
             #setting up the connection
             global $connection;
@@ -203,10 +201,10 @@
             $pPicture = $this->getPicture();
 
             #stored procedure for insert new customer
-            $save = 'Call insert_customer(?,?,?,?,?,?,?,?,?)';
+            $create = 'Call insert_customer(?,?,?,?,?,?,?,?,?)';
 
             #execute the SQL statement
-            $PDOobject = $connection->prepare($save);
+            $PDOobject = $connection->prepare($create);
 
             #bind the parameter
             $PDOobject->bindParam(1, $pFirstName, PDO::PARAM_STR);
@@ -223,6 +221,24 @@
 
             return "Account Created";
         }
+
+        public function updateCustomer() {
+            #setting up the connection
+            global $connection;
+
+        }
+
+        public function getCustomerById(){
+            #setting up the connection
+            global $connection;
+        }
+
+        public function login(){
+            #setting up the connection
+            global $connection;
+        }
+
+
 
         // // public function selectCustomerByID() {
             
