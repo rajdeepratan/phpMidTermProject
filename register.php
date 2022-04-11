@@ -1,6 +1,6 @@
 <?php
 
-    require_once "./class/customer.php";
+    require_once "./class/customer/customer.php";
     
     include_once "./phpFunction/functionProducts.php";
 
@@ -8,6 +8,7 @@
 
     #create customer class object
     $customer = new customer();
+
 
     #error variables
     $errorOccurred = false;
@@ -69,7 +70,7 @@
         }
 
         if($errorOccurred == false) { 
-           $success = $customer->save();
+           $success = $customer->createCustomer();
         }
     
     }
