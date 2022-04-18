@@ -49,31 +49,7 @@
         $errorProfilePicture = $customer->setPicture("profilePicture");
 
         #error occurred
-        if($errorFirstName) {
-            $errorOccurred = true;
-        }
-        if($errorLastName) {
-            $errorOccurred = true;
-        }
-        if($errorAddress) {
-            $errorOccurred = true;
-        }
-        if($errorCity) {
-            $errorOccurred = true;
-        }
-        if($errorProvince) {
-            $errorOccurred = true;
-        }
-        if($errorPostalCode) {
-            $errorOccurred = true;
-        }
-        if($errorUsername) {
-            $errorOccurred = true;
-        }
-        if($errorPassword) {
-            $errorOccurred = true;
-        }
-        if($errorProfilePicture) {
+        if($errorFirstName || $errorLastName || $errorAddress || $errorCity || $errorProvince || $errorPostalCode || $errorUsername || $errorPassword || $errorProfilePicture) {
             $errorOccurred = true;
         }
 

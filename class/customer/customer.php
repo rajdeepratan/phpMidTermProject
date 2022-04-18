@@ -36,7 +36,7 @@
             if(empty($firstName)) {
                 return "The first name is empty";
             } else if(mb_strlen($firstName) > self::NAME_MAX_LENGTH) {
-                return "This first name is greater than 20 char";
+                return "First name is greater than 20 char";
             } else {
                 $this->firstName = htmlspecialchars($firstName);
                 return null;
@@ -50,7 +50,7 @@
             if(empty($lastName)) {
                 return "The last name is empty";
             } else if(mb_strlen($lastName) > self::NAME_MAX_LENGTH) {
-                return "This last name is greater than 20 char";
+                return "Last name is greater than 20 char";
             } else {
                 $this->lastName = htmlspecialchars($lastName);
                 return null;
@@ -64,7 +64,7 @@
             if(empty($address)) {
                 return "The address is empty";
             } else if(mb_strlen($address) > self::ADDRESS_MAX_LENGTH) {
-                return "This address is greater than 25 char";
+                return "Address is greater than 25 char";
             } else {
                 $this->address = htmlspecialchars($address);
                 return null;
@@ -78,7 +78,7 @@
         if(empty($city)) {
                 return "The city is empty";
             } else if(mb_strlen($city) > self::ADDRESS_MAX_LENGTH) {
-                return "This city is greater than 25 char";
+                return "City is greater than 25 char";
             } else {
                 $this->city = htmlspecialchars($city);
                 return null;
@@ -92,7 +92,7 @@
             if(empty($province)) {
                 return "The province is empty";
             } else if(mb_strlen($province) > self::ADDRESS_MAX_LENGTH) {
-                return "This province is greater than 25 char";
+                return "Province is greater than 25 char";
             } else {
                 $this->province = htmlspecialchars($province);
                 return null;
@@ -106,7 +106,7 @@
             if(empty($postalCode)) {
                 return "The postalCode is empty";
             } else if(mb_strlen($postalCode) > self::POSTAL_MAX_LENGTH) {
-                return "This postalCode is greater than 7 char";
+                return "Postal code is greater than 7 char";
             } else {
                 $this->postalCode = htmlspecialchars($postalCode);
                 return null;
@@ -120,7 +120,7 @@
             if(empty($username)) {
                 return "The user name is empty";
             } else if(mb_strlen($username) > self::USERNAME_MAX_LENGTH) {
-                return "The user name can not be greater than 15 char";
+                return "Username can not be greater than 15 char";
             } else {
                 $this->username = htmlspecialchars($username);
                 return null;
@@ -134,7 +134,7 @@
             if(empty($password)) {
                 return "The password is empty";
             } else if(mb_strlen($password) > self::PASSWORD_MAX_LENGTH) {
-                return "This password can not greater than 255 char";
+                return "Password can not greater than 255 char";
             } else {
                 $userPassword = htmlspecialchars($password);
                 $this->password = password_hash($userPassword, PASSWORD_DEFAULT);
