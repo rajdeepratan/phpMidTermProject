@@ -14,6 +14,8 @@
         private $price = "";
         private $taxesAmount = "";
         private $comments = "";
+        private $createdAt = "";
+        private $updatedAt = "";
 
         public function getOrderId() {
             return $this->orderId;
@@ -99,33 +101,58 @@
             }
         }
 
-        public function __construct($orderId = "", $customerId = "", $productId = "", $productQty = "", $price = "", $taxesAmount="", $comments = "")  {
+        public function getCreatedAt(){
+            return $this->createdAt;
+        }
+        protected function setCreatedAt($createdAt){
+            $this->createdAt = $createdAt;
+            return null;
+        }
+
+        public function getUpdatedAt(){
+            return $this->updatedAt;
+        }
+        protected function setUpdatedAt($updatedAt){
+            $this->updatedAt = $updatedAt;
+            return null;
+        }
+
+
+        public function __construct($orderId = "", $customerId = "", $productId = "", $productQty = "", $price = "", $taxesAmount="", $comments = "", $createdAt = "", $updatedAt = "")  {
 
             if($orderId){
-                $this->orderId = $orderId;
+                $this->setOrderId($orderId);
             }
             if($customerId) {
-                $this->customerId = $customerId;
+                $this->setCustomerId($customerId);
             }
 
             if($productId) {
-                $this->productId = $productId;
+                $this->setProductId($productId);
             }
 
             if($productQty){
-                $this->productQty = $productQty;
+                $this->setProductQty($productQty);
             }
 
             if($price){
-                $this->price = $price;
+                $this->setPrice($price);
             }
 
             if($taxesAmount){
-                $this->taxesAmount = $taxesAmount;
+                $this->setTaxesAmount($taxesAmount);
             }
 
             if($comments){
-                $this->comments = $comments;
+                $this->setComments($comments);
+            }
+
+            if($createdAt) {
+                $this->setCreatedAt($createdAt);
+            }
+
+            if($updatedAt) {
+                $this->setUpdatedAt($updatedAt);
             }
 
         }

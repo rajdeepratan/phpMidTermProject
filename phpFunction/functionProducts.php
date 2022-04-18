@@ -113,7 +113,6 @@ function pageTop($pageTitle) {
             <!-- Bootstrap CSS -->
             <link href="<?php echo BOOTSTRAP_CSS ?>" rel="stylesheet" type="text/css">
 
-
             <title><?php echo $pageTitle; ?></title>
         </head>
         <body>

@@ -40,6 +40,10 @@
     color: green !important;
 }
 
+.order-page .search-button {
+    height: 100%;
+}
+
 /* Footer Section*/
 footer {
     background-color: black;

@@ -43,7 +43,9 @@
                 $errorPrice = $order->setPrice($product->getProductRetailPrice());
             }
         }
-        $errorTaxesAmount = $order->setTaxesAmount(LOCAL_TAXES);
+        $subTotal = $order->getPrice() * $_POST["quantity"];
+        $taxesAmount = ($subTotal/100) * LOCAL_TAXES;
+        $errorTaxesAmount = $order->setTaxesAmount($taxesAmount);
         
         #error occurred
         if($errorCustomerID || $errorProductId || $errorProductQty || $errorPrice || $errorTaxesAmount || $errorComments) {
@@ -53,29 +55,6 @@
         if($errorOccurred == false) {
             $success = $order->createOrder();
         }
-
-        // if($errorOccurred == false) {
-
-        //     #calculate the sub total, taxes amount and grand total
-        //     $subTotal = (float)$price * (float)$quantity;
-        //     $taxesAmount = ($subTotal/100) * LOCAL_TAXES;
-        //     $grandTotal = $subTotal + $taxesAmount;
-        //     $roundedTotal = round($grandTotal, 2);
-
-        //     #save all the values in file
-        //     // $data = array($productCode, $firstName, $lastName, $city, $comment, $price, $quantity, $subTotal, $taxesAmount, $roundedTotal);
-        //     $JSONdata = json_encode($data);
-        //     file_put_contents(DATA_FILE, "$JSONdata\r\n", FILE_APPEND);
-
-        //     # clear all the variables
-        //     $productCode = "";
-        //     $comment = "";
-        //     $quantity = 0;
-
-        //     #show success message
-        //     // echo "<meta http-equiv='refresh'content='0'>";
-        //     $success = true;
-        // }
 
     }
 ?>
