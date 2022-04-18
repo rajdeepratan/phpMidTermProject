@@ -1,5 +1,7 @@
 <?php
 
+    include_once "../login.php";
+
 define("DEBUGGING_MODE", TRUE);
 define("FOLDER_ERROR", "./errors/");
 define("FILE_ERROR", FOLDER_ERROR ."error.log");
@@ -61,6 +63,8 @@ define("FILE_INDEX", "index.php");
 define("FILE_PRODUCTS", "products.php");
 define("FILE_ORDERS", "orders.php");
 define("FILE_REGISTER", "register.php");
+define("FILE_LOGIN", "login.php");
+define("FILE_LOGOUT", "logout.php");
 
 define("FOLDER_CSS", "./css/");
 define("FILE_CSS", FOLDER_CSS . "style.css");
@@ -95,6 +99,9 @@ function pageTop($pageTitle) {
     header('CacheControl: no-cache');
     header('Pragma: no-cache');
     header('Content-type: text/html; charset=UTF-8');
+    
+    session_start();
+    // session_destroy();
 
     ?><!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Strict//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-strict.dtd">
         <html>
@@ -166,6 +173,7 @@ function navigationMenu() {
                                         Products
                                     </a>
                                 </li>
+                                <?php if(!empty($_SESSION['customerId'])) { ?>
                                 <li class="nav-item">
                                     <a
                                         class="nav-link 
@@ -177,17 +185,29 @@ function navigationMenu() {
                                         Orders
                                     </a>
                                 </li>
+                                <?php } ?>
                             </ul>
-                            <a 
-                                class="nav-link 
-                                    <?php if($curPageName === FILE_REGISTER)
-                                        echo "active";
-                                    ?>"
-                                aria-current="page" 
-                                href="<?php echo FILE_REGISTER ?>"
-                            >
-                                SignUp
-                            </a>
+                            <?php if(empty($_SESSION['customerId'])) { ?>
+                                <a class="nav-link 
+                                        <?php if($curPageName === FILE_LOGIN)
+                                            echo "active";
+                                        ?>"
+                                    href="<?php echo FILE_LOGIN ?>"
+                                >
+                                    Sign In / Sign Up
+                                </a>
+                            <?php } else { ?>
+                                <div class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <?php  echo  "<img class='profile-image' src='data:image/jpeg;base64,".base64_encode($_SESSION['picture'])."' /> " . $_SESSION['firstName'] .' '. $_SESSION['lastName']
+                                        ?>
+                                    </a>
+                                    <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                                        <li><a class="dropdown-item" href="<?php echo FILE_REGISTER ?>">Profile</a></li>
+                                        <li><a class="dropdown-item" href="<?php echo FILE_LOGOUT ?>">Sign Out</a></li>
+                                    </ul>
+                                </div>
+                            <?php } ?>
                         </div>
                     </div>
                 </nav>
@@ -264,44 +284,4 @@ function showTableData(){
         #close the file
         fclose($fileHandle);
     }
-}
-
-
-// PDO Function
-function pdoFunction($sql) {
-
-    $connection = new PDO("mysql:host=localhost;dbname=database_2110167", 'root', '');
-
-    #to raise an exception when there is an error in your sql queries
-    $connection->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-
-    #to protect my code against SQL injection
-    $connection->setAttribute(PDO::ATTR_EMULATE_PREPARES, false);
-    
-    
-    // #execute the SQL statement
-    $PDOobject = $connection->prepare($sql);
-
-    #bind the parameter
-    // $PDOobject->bindParam(":myusername", $_POST["username"]);
-    // $PDOobject->bindParam(":mypassword", $_POST["password"]);
-
-    $PDOobject->execute();
-
-
-    return $PDOobject;
-
-    #loop in all the returned resultset (rows)
-    #foreach($PDOobject as $row)
-    // while($row = $PDOobject->fetch()) {
-    //     $firstName = $row['productCode'];
-    //     echo "<br>Welcome " . $firstName;
-    // }
-
-    #after looping in the results, check if we fount a roq
-    // if($firstName == ""){
-    //     echo "You are NOT connected to the website";
-    // }
-    #close the connection
-    // $connection = null;
 }

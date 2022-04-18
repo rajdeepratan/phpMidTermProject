@@ -8,7 +8,7 @@ class products extends collection {
         global $connection;
 
         #stored procedure for getting all the products
-        $getProductsList = 'Call select_all_product()';
+        $getProductsList = 'Call selectAllProduct()';
 
         #execute the SQL statement
         $PDOobject = $connection->prepare($getProductsList);

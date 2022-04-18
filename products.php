@@ -26,7 +26,6 @@
     if(isset($_POST["submitButton"])) {
 
         #variable Validation and save the POSTed data into a variable
-        var_dump($_POST["productCode"]);
         if(empty($_POST["productCode"])) {
             $errorOccurred = true;
             $errorProductCode = "Please enter the product code";

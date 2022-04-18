@@ -1,6 +1,19 @@
 <?php
     include_once "./phpFunction/functionProducts.php";
+    
     pageTop("Orders");
+
+    if(empty($_SESSION['customerId'])) {
+        header("Location:".FILE_LOGIN);
+        exit;
+        if(!headers_sent()){
+            header("Location:".FILE_LOGIN);
+            exit;
+        } 
+        else {
+            echo "<script type='text/javascript'> location.href='".FILE_LOGIN."'; </script>";
+        } 
+    }
     
 ?>
 

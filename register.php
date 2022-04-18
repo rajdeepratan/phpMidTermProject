@@ -7,7 +7,12 @@
     pageTop("Index");
 
     #create customer class object
-    $customer = new customer();
+    if($_SESSION['customerId'] && $_SESSION['firstName'] && $_SESSION['lastName'] && $_SESSION['address'] && $_SESSION['city'] && $_SESSION['province'] && $_SESSION['postalCode'] && $_SESSION['username']) {
+        $customer = new customer($_SESSION['customerId'], $_SESSION['firstName'], $_SESSION['lastName'], $_SESSION['address'], $_SESSION['city'], $_SESSION['province'], $_SESSION['postalCode'], $_SESSION['username'], '', '');
+    } else {
+        $customer = new customer();
+
+    }
 
 
     #error variables
@@ -18,7 +23,7 @@
     $errorCity = "";
     $errorProvince = "";
     $errorPostalCode = "";
-    $errorUserName = "";
+    $errorUsername = "";
     $errorPassword = "";
     $errorProfilePicture = "";
 
@@ -36,7 +41,7 @@
         $errorCity = $customer->setCity($_POST["city"]);
         $errorProvince = $customer->setProvince($_POST["province"]);
         $errorPostalCode = $customer->setPostalCode($_POST["postalCode"]);
-        $errorUserName = $customer->setUserName($_POST["userName"]);
+        $errorUsername = $customer->setUsername($_POST["username"]);
         $errorPassword = $customer->setPassword($_POST["password"]);
         $errorProfilePicture = $customer->setPicture("profilePicture");
 
@@ -59,7 +64,7 @@
         if($errorPostalCode) {
             $errorOccurred = true;
         }
-        if($errorUserName) {
+        if($errorUsername) {
             $errorOccurred = true;
         }
         if($errorPassword) {
@@ -139,11 +144,11 @@
             </div>
             <div class="row mb-3">
                 <div class="col-md-4">
-                    <label for="userName" class="form-label">User Name</label>
-                    <input type="text" class="form-control" name="userName" id="userName" value="<?php echo $customer->getUserName(); ?>" />
-                    <div class="alert alert-danger mt-3 <?php if(empty($errorUserName)) echo "d-none" ?>" role="alert">
+                    <label for="username" class="form-label">User Name</label>
+                    <input type="text" class="form-control" name="username" id="username" value="<?php echo $customer->getUsername(); ?>" />
+                    <div class="alert alert-danger mt-3 <?php if(empty($errorUsername)) echo "d-none" ?>" role="alert">
                         <?php 
-                            echo $errorUserName;
+                            echo $errorUsername;
                         ?>
                     </div>
                 </div>

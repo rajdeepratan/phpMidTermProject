@@ -12,6 +12,11 @@
     margin-right: 20px;
 }
 
+.nav-item .profile-image {
+    width: 35px;
+    border-radius: 20px;
+}
+
 /* Home Page */
 .home-page .red-border {
     border: 5px solid red;

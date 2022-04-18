@@ -17,7 +17,7 @@
         private $city = "";
         private $province = "";
         private $postalCode = "";
-        private $userName = "";
+        private $username = "";
         private $password = "";
         private $picture;
 
@@ -113,16 +113,16 @@
             }
         }
 
-        public function getUserName() {
-            return $this->userName;
+        public function getUsername() {
+            return $this->username;
         }
-        public function setUserName($userName) {
-            if(empty($userName)) {
+        public function setUsername($username) {
+            if(empty($username)) {
                 return "The user name is empty";
-            } else if(mb_strlen($userName) > self::USERNAME_MAX_LENGTH) {
+            } else if(mb_strlen($username) > self::USERNAME_MAX_LENGTH) {
                 return "The user name can not be greater than 15 char";
             } else {
-                $this->userName = htmlspecialchars($userName);
+                $this->username = htmlspecialchars($username);
                 return null;
             }
         }
@@ -167,19 +167,37 @@
             }
         }
 
-        public function __construct($customerId = "", $firstName = "", $lastName = "", $address = "", $city = "", $province = "", $postalCode = "", $userName = "", $password = "", $picture = "") {
+        public function __construct($customerId = "", $firstName = "", $lastName = "", $address = "", $city = "", $province = "", $postalCode = "", $username = "", $password = "", $picture = "") {
             
-                if($customerId && $firstName && $lastName && $address && $city && $province && $postalCode && $userName && $password && $picture) {
+                if($customerId) {
                     $this->setCustomerId($customerId);
+                }
+                if($firstName){
                     $this->setFirstName($firstName);
+                }
+                if($lastName){
                     $this->setLastName($lastName);
+                }
+                if($address){
                     $this->setAddress($address);
+                }
+                if($city) {
                     $this->setCity($city);
+                }
+                if($province){
                     $this->setProvince($province);
+                }
+                if($postalCode){
                     $this->setPostalCode($postalCode);
-                    $this->setFirstName($userName);
-                    $this->setFirstName($password);
-                    $this->setFirstName($picture);
+                }
+                if($username){
+                    $this->setUsername($username);
+                }
+                if($password){
+                    $this->setPassword($password);
+                }
+                if($picture){
+                    $this->setPicture($picture);
                 }
 
         }
@@ -196,12 +214,12 @@
             $pCity = $this->getCity();
             $pProvince = $this->getProvince();
             $pPostalCode = $this->getPostalCode();
-            $pUserName = $this->getUserName();
+            $pUsername = $this->getUsername();
             $pPassword = $this->getPassword();
             $pPicture = $this->getPicture();
 
             #stored procedure for insert new customer
-            $create = 'Call insert_customer(?,?,?,?,?,?,?,?,?)';
+            $create = 'Call insertCustomer(?,?,?,?,?,?,?,?,?)';
 
             #execute the SQL statement
             $PDOobject = $connection->prepare($create);
@@ -213,7 +231,7 @@
             $PDOobject->bindParam(4, $pCity, PDO::PARAM_STR);
             $PDOobject->bindParam(5, $pProvince, PDO::PARAM_STR);
             $PDOobject->bindParam(6, $pPostalCode, PDO::PARAM_STR);
-            $PDOobject->bindParam(7, $pUserName, PDO::PARAM_STR);
+            $PDOobject->bindParam(7, $pUsername, PDO::PARAM_STR);
             $PDOobject->bindParam(8, $pPassword, PDO::PARAM_STR);
             $PDOobject->bindParam(9, $pPicture, PDO::PARAM_LOB);
             
@@ -233,9 +251,62 @@
             global $connection;
         }
 
-        public function login(){
+        public function login($pPassword){
             #setting up the connection
             global $connection;
+
+            #store class variables inside function local variable
+            $pUsername = $this->getUsername();
+
+            #stored procedure for insert new customer
+            $login = 'Call loginCustomer(?)';
+
+            #execute the SQL statement
+            $PDOobject = $connection->prepare($login);
+
+            #bind the parameter
+            $PDOobject->bindParam(1, $pUsername, PDO::PARAM_STR);
+
+            $PDOobject->execute();
+
+            // if(!$PDOobject->fetch()) {
+            //     return "Username or password is incorrect!";
+            // }
+
+            while($row = $PDOobject->fetch()) {
+                $passwordHash = $row['password'];
+                $valid = password_verify($pPassword, $passwordHash);
+                echo $valid;
+                if($valid) {
+                    // $this->setCustomerId($row['customerId']);
+                    // $this->setFirstName($row['firstName']);
+                    // $this->setLastName($row['lastName']);
+                    // $this->setAddress($row['address']);
+                    // $this->setCity($row['city']);
+                    // $this->setProvince($row['province']);
+                    // $this->setPostalCode($row['postalCode']);
+                    // $this->setUsername($row['username']);
+                    // // $this->setPassword($row['password']);
+                    // $this->setPicture($row['picture']);
+
+                    $_SESSION['customerId'] = $row['customerId'];
+                    $_SESSION['firstName'] = $row['firstName'];
+                    $_SESSION['lastName'] = $row['lastName'];
+                    $_SESSION['address'] = $row['address'];
+                    $_SESSION['city'] = $row['city'];
+                    $_SESSION['province'] = $row['province'];
+                    $_SESSION['postalCode'] = $row['postalCode'];
+                    $_SESSION['username'] = $row['username'];
+                    // $_SESSION['password'] = $pPassword;
+                    $_SESSION['picture'] = $row['picture'];
+                    
+                    return "";
+                } else {
+                    echo "Username or password is incorrect!";
+                    return "Username or password is incorrect!";
+                }
+            }
+
         }
 
 
@@ -257,7 +328,7 @@
         // //         $this->setCity = $row["city"];
         // //         $this->setProvince = $row["province"];
         // //         $this->setPostalCode = $row["postalCode"];
-        // //         $this->setUserName = $row["userName"];
+        // //         $this->setUsername = $row["username"];
         // //         $this->setPassword = $row["password"];
         // //         $this->setPicture = $row["picture"];
         // //         return true;
