@@ -238,11 +238,47 @@
             $PDOobject->execute();
 
             return "Account Created";
+
         }
 
         public function updateCustomer() {
+
             #setting up the connection
             global $connection;
+
+            #store class variables inside function local variable
+            $pCustomerId = $this->getCustomerById();
+            $pFirstName = $this->getFirstName();
+            $pLastName = $this->getLastName();
+            $pAddress = $this->getAddress();
+            $pCity = $this->getCity();
+            $pProvince = $this->getProvince();
+            $pPostalCode = $this->getPostalCode();
+            $pUsername = $this->getUsername();
+            $pPassword = $this->getPassword();
+            $pPicture = $this->getPicture();
+
+            #stored procedure for insert new customer
+            $create = 'Call updateCustomer(?,?,?,?,?,?,?,?,?,?)';
+
+            #execute the SQL statement
+            $PDOobject = $connection->prepare($create);
+
+            #bind the parameter
+            $PDOobject->bindParam(1, $pCustomerId, PDO::PARAM_STR);
+            $PDOobject->bindParam(2, $pFirstName, PDO::PARAM_STR);
+            $PDOobject->bindParam(3, $pLastName, PDO::PARAM_STR);
+            $PDOobject->bindParam(4, $pAddress, PDO::PARAM_STR);
+            $PDOobject->bindParam(5, $pCity, PDO::PARAM_STR);
+            $PDOobject->bindParam(6, $pProvince, PDO::PARAM_STR);
+            $PDOobject->bindParam(7, $pPostalCode, PDO::PARAM_STR);
+            $PDOobject->bindParam(8, $pUsername, PDO::PARAM_STR);
+            $PDOobject->bindParam(9, $pPassword, PDO::PARAM_STR);
+            $PDOobject->bindParam(10, $pPicture, PDO::PARAM_LOB);
+            
+            $PDOobject->execute();
+
+            return "Account Updated";
 
         }
 
@@ -252,6 +288,7 @@
         }
 
         public function login($pPassword){
+            
             #setting up the connection
             global $connection;
 

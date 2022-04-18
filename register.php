@@ -6,14 +6,17 @@
 
     pageTop("Index");
 
+    #login customer ID
+    $customerId="";
+
     #create customer class object
-    if($_SESSION['customerId'] && $_SESSION['firstName'] && $_SESSION['lastName'] && $_SESSION['address'] && $_SESSION['city'] && $_SESSION['province'] && $_SESSION['postalCode'] && $_SESSION['username']) {
+    if(isset($_SESSION['customerId']) && isset($_SESSION['firstName']) && isset($_SESSION['lastName']) && isset($_SESSION['address']) && isset($_SESSION['city']) && isset($_SESSION['province']) && isset($_SESSION['postalCode']) && isset($_SESSION['username'])) {
         $customer = new customer($_SESSION['customerId'], $_SESSION['firstName'], $_SESSION['lastName'], $_SESSION['address'], $_SESSION['city'], $_SESSION['province'], $_SESSION['postalCode'], $_SESSION['username'], '', '');
+        $customerId = $_SESSION['customerId'];
     } else {
         $customer = new customer();
 
     }
-
 
     #error variables
     $errorOccurred = false;
@@ -74,8 +77,12 @@
             $errorOccurred = true;
         }
 
-        if($errorOccurred == false) { 
-           $success = $customer->createCustomer();
+        if($errorOccurred == false) {
+            if(empty($customerId)) {
+                $success = $customer->createCustomer();
+            } else {
+                $success = $customer->updateCustomer();
+            }
         }
     
     }
@@ -172,7 +179,7 @@
                 </div>
             </div>
             <div class="text-center">
-                <input type="submit" class="btn btn-primary" name="submitButton" value="Register" />
+                <input type="submit" class="btn btn-primary" name="submitButton" value="<?php if(empty($customerId)){ echo "Register"; }else{ echo "Update"; } ?>" />
             </div>
             <div class="text-center alert alert-success mt-3 <?php if(empty($success)) echo "d-none" ?>" role="alert">
                 <?php 
