@@ -14,13 +14,11 @@
         private $price = "";
         private $taxesAmount = "";
         private $comments = "";
-        private $createdAt = "";
-        private $updatedAt = "";
 
         public function getOrderId() {
             return $this->orderId;
         }
-        protected function setOrderId($orderId) {
+        public function setOrderId($orderId) {
             $this->orderId = $orderId;
             return null;
         }
@@ -101,24 +99,7 @@
             }
         }
 
-        public function getCreatedAt(){
-            return $this->createdAt;
-        }
-        protected function setCreatedAt($createdAt){
-            $this->createdAt = $createdAt;
-            return null;
-        }
-
-        public function getUpdatedAt(){
-            return $this->updatedAt;
-        }
-        protected function setUpdatedAt($updatedAt){
-            $this->updatedAt = $updatedAt;
-            return null;
-        }
-
-
-        public function __construct($orderId = "", $customerId = "", $productId = "", $productQty = "", $price = "", $taxesAmount="", $comments = "", $createdAt = "", $updatedAt = "")  {
+        public function __construct($orderId = "", $customerId = "", $productId = "", $productQty = "", $price = "", $taxesAmount="", $comments = "")  {
 
             if($orderId){
                 $this->setOrderId($orderId);
@@ -147,14 +128,6 @@
                 $this->setComments($comments);
             }
 
-            if($createdAt) {
-                $this->setCreatedAt($createdAt);
-            }
-
-            if($updatedAt) {
-                $this->setUpdatedAt($updatedAt);
-            }
-
         }
 
         public function createOrder(){
@@ -170,11 +143,11 @@
             $pTaxesAmount = $this->getTaxesAmount();
             $pComments = $this->getComments();
 
-            #stored procedure for insert new customer
-            $create = 'Call insertOrder(?,?,?,?,?,?)';
+            #stored procedure for insert new order
+            $createOrder = 'Call insertOrder(?,?,?,?,?,?)';
 
             #execute the SQL statement
-            $PDOobject = $connection->prepare($create);
+            $PDOobject = $connection->prepare($createOrder);
 
             #bind the parameter
             $PDOobject->bindParam(1, $pCustomerId, PDO::PARAM_STR);
@@ -188,6 +161,88 @@
 
             return "Order Created";
             
+        }
+
+        public function getOrderById(){
+
+            #setting up the connection
+            global $connection;
+
+            #store class variables inside function local variable
+            $pOrderId = $this->getOrderId();
+
+            #stored procedure for select order by id
+            $getOrder = 'Call selectOneOrder(?)';
+
+            #execute the SQL statement
+            $PDOobject = $connection->prepare($getOrder);
+
+            #bind the parameter
+            $PDOobject->bindParam(1, $pOrderId, PDO::PARAM_STR);
+
+            $PDOobject->execute();
+
+            while($row = $PDOobject->fetch()) {
+                $this->setOrderId($row['orderId']);
+                $this->setCustomerId($row['customerId']);
+                $this->setProductId($row['productId']);
+                $this->setProductQty($row['productQty']);
+                $this->setPrice($row['price']);
+                $this->setTaxesAmount($row['taxesAmount']);
+                $this->setComments($row['comments']);
+            }
+        }
+
+        public function updateOrderById(){
+
+            #setting up the connection
+            global $connection;
+
+            #store class variables inside function local variable
+            $pOrderId = $this->getOrderId();
+
+            #stored procedure for update order by id
+            $updateOrder = 'Call updateOrder(?)';
+
+            #execute the SQL statement
+            $PDOobject = $connection->prepare($updateOrder);
+
+            #bind the parameter
+            $PDOobject->bindParam(1, $pOrderId, PDO::PARAM_STR);
+            $PDOobject->bindParam(2, $pCustomerId, PDO::PARAM_STR);
+            $PDOobject->bindParam(3, $pProductId, PDO::PARAM_STR);
+            $PDOobject->bindParam(4, $pProductQty, PDO::PARAM_STR);
+            $PDOobject->bindParam(5, $pPrice, PDO::PARAM_STR);
+            $PDOobject->bindParam(6, $pTaxesAmount, PDO::PARAM_STR);
+            $PDOobject->bindParam(7, $pComments, PDO::PARAM_STR);
+
+            $PDOobject->execute();
+
+            return "Order Updated, Refresh the page to see it's effect";
+        }
+
+        public function deleteOrderById(){
+
+            #setting up the connection
+            global $connection;
+
+            #store class variables inside function local variable
+            $pOrderId = $this->getOrderId();
+
+            #stored procedure for delete order by id
+            $deleteOrder = 'Call deleteOrder(?)';
+
+            #execute the SQL statement
+            $PDOobject = $connection->prepare($deleteOrder);
+             
+            #bind the parameter
+            $PDOobject->bindParam(1, $pOrderId, PDO::PARAM_STR);
+
+            
+
+            $PDOobject->execute();
+
+            return "Order Deleted, Refresh the page to see it's effect";
         }
     }
 

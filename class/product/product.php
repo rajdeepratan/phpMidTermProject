@@ -17,7 +17,7 @@
         public function getProductId() {
             return $this->productId;
         }
-        protected function setProductId($productId) {
+        public function setProductId($productId) {
             $this->productId = $productId;
             return null;
         }
@@ -92,10 +92,10 @@
             $pProductCostPrice = $this->getProductCostPrice();
 
             #stored procedure for insert new product
-            $create = 'Call insert_product(?,?,?,?)';
+            $createProduct = 'Call insertProduct(?,?,?,?)';
 
             #execute the SQL statement
-            $PDOobject = $connection->prepare($create);
+            $PDOobject = $connection->prepare($createProduct);
 
             #bind the parameter
             $PDOobject->bindParam(1, $pProductCode, PDO::PARAM_STR);
@@ -108,19 +108,86 @@
             return "Product Created";
         }
 
-        public function updateProduct() {
-
-            #setting up the connection
-            global $connection;
-
-        }
-
         public function getProductById(){
 
             #setting up the connection
             global $connection;
+
+            #store class variables inside function local variable
+            $pProductId = $this->getProductById();
+
+            #stored procedure for get product by id
+            $getProduct = 'Call selectOneProduct(?)';
+
+            #execute the SQL statement
+            $PDOobject = $connection->prepare($getProduct);
+
+            #bind the parameter
+            $PDOobject->bindParam(1, $pProductId, PDO::PARAM_STR);
+
+            $PDOobject->execute();
+            while($row = $PDOobject->fetch()) {
+                $this->setProductId($row['productId']);
+                $this->setProductCode($row['productCode']);
+                $this->setProductDescription($row['productDescription']);
+                $this->setProductRetailPrice($row['productRetailPrice']);
+                $this->setProductCostPrice($row['productCostPrice']);
+            }
             
         }
+
+        public function updateProductById() {
+
+            #setting up the connection
+            global $connection;
+
+            #store class variables inside function local variable
+            $pProductId = $this->getProductById();
+            $pProductCode = $this->getProductCode();
+            $pProductDescription = $this->getProductDescription();
+            $pProductRetailPrice = $this->getProductRetailPrice();
+            $pProductCostPrice = $this->getProductCostPrice();
+
+            #stored procedure for update product by id
+            $updateProduct = 'Call updateProduct(?,?,?,?,?)';
+
+            #execute the SQL statement
+            $PDOobject = $connection->prepare($updateProduct);
+
+            #bind the parameter
+            $PDOobject->bindParam(1, $pProductId, PDO::PARAM_STR);
+            $PDOobject->bindParam(2, $pProductCode, PDO::PARAM_STR);
+            $PDOobject->bindParam(3, $pProductDescription, PDO::PARAM_STR);
+            $PDOobject->bindParam(4, $pProductRetailPrice, PDO::PARAM_STR);
+            $PDOobject->bindParam(5, $pProductCostPrice, PDO::PARAM_STR);
+
+            $PDOobject->execute();
+
+            return "Product Updated, Refresh the page to see it's effect";
+
+        }
+
+        public function deleteProductById(){
+            #setting up the connection
+            global $connection;
+
+            #store class variables inside function local variable
+            $pProductId = $this->getProductById();
+
+            #stored procedure for delete product by id
+            $deleteCustomer = 'Call deleteProduct(?)';
+
+            #execute the SQL statement
+            $PDOobject = $connection->prepare($deleteCustomer);
+
+            #bind the parameter
+            $PDOobject->bindParam(1, $pCustomerId, PDO::PARAM_STR);
+
+            $PDOobject->execute();
+
+            return "Product Deleted, Refresh the page to see it's effect";
+        }
+
     }
 
 

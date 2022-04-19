@@ -21,11 +21,7 @@
 
             $PDOobject->execute();
 
-            // var_dump($PDOobject->fetch(PDO::FETCH_ASSOC));
-
             while($row = $PDOobject->fetch(PDO::FETCH_ASSOC)){
-            //     echo $row["orderId"] $row["createdAt"] $row["productCode"] $row["firstName"] $row["lastName"] $row["city"] $row["comments"] $row["price"] $row["taxesAmount"];
-            //     echo "<br>";
                 $searchOrder = new searchOrder($row["orderId"], $row["createdAt"], $row["productCode"], $row["firstName"], $row["lastName"], $row["city"], $row["comments"], $row["price"], $row["productQty"], $row["taxesAmount"]);
                 $this->add($row["orderId"], $searchOrder);
             }

@@ -18,7 +18,6 @@
             while($row = $PDOobject->fetch(PDO::FETCH_ASSOC)){
                 $product = new product($row["productId"], $row["productCode"], $row["productDescription"], $row["productRetailPrice"], $row["productCostPrice"]);
                 $this->add($row["productId"], $product);
-
             }
 
         }

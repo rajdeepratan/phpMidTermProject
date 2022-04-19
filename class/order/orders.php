@@ -16,9 +16,8 @@
             $PDOobject->execute();
 
             while($row = $PDOobject->fetch(PDO::FETCH_ASSOC)){
-                $order = new order($row["orderId"], $row["customerId"], $row["productId"], $row["productQty"], $row["price"], $row["taxesAmount"], $row["comments"], $row["createdAt"], $row["updatedAt"]);
+                $order = new order($row["orderId"], $row["customerId"], $row["productId"], $row["productQty"], $row["price"], $row["taxesAmount"], $row["comments"]);
                 $this->add($row["orderId"], $order);
-
             }
 
         }

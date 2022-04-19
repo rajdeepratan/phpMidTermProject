@@ -6,7 +6,7 @@
 
         const NAME_MAX_LENGTH = 20;
         const ADDRESS_MAX_LENGTH = 25;
-        const POSTAL_MAX_LENGTH = 7;
+        const POSTAL_MAX_LENGTH = 8;
         const USERNAME_MAX_LENGTH = 15;
         const PASSWORD_MAX_LENGTH = 255;
         
@@ -24,7 +24,7 @@
         public function getCustomerId() {
             return $this->customerId;
         }
-        protected function setCustomerId($customerId) {
+        public function setCustomerId($customerId) {
             $this->customerId = $customerId;
             return null;
         }
@@ -168,7 +168,7 @@
         }
 
         public function __construct($customerId = "", $firstName = "", $lastName = "", $address = "", $city = "", $province = "", $postalCode = "", $username = "", $password = "", $picture = "") {
-            
+
                 if($customerId) {
                     $this->setCustomerId($customerId);
                 }
@@ -219,10 +219,10 @@
             $pPicture = $this->getPicture();
 
             #stored procedure for insert new customer
-            $create = 'Call insertCustomer(?,?,?,?,?,?,?,?,?)';
+            $createCustomer = 'Call insertCustomer(?,?,?,?,?,?,?,?,?)';
 
             #execute the SQL statement
-            $PDOobject = $connection->prepare($create);
+            $PDOobject = $connection->prepare($createCustomer);
 
             #bind the parameter
             $PDOobject->bindParam(1, $pFirstName, PDO::PARAM_STR);
@@ -237,17 +237,49 @@
             
             $PDOobject->execute();
 
-            return "Account Created";
+            return "Account Created, Go back and sign in";
 
         }
 
-        public function updateCustomer() {
+        public function getCustomerById(){
 
             #setting up the connection
             global $connection;
 
             #store class variables inside function local variable
             $pCustomerId = $this->getCustomerById();
+
+            #stored procedure for get customer by id
+            $getCustomer = 'Call selectOneCustomer(?)';
+
+            #execute the SQL statement
+            $PDOobject = $connection->prepare($getCustomer);
+
+            #bind the parameter
+            $PDOobject->bindParam(1, $pCustomerId, PDO::PARAM_STR);
+
+            $PDOobject->execute();
+            while($row = $PDOobject->fetch()) {
+                $this->setCustomerId($row['customerId']);
+                $this->setFirstName($row['firstName']);
+                $this->setLastName($row['lastName']);
+                $this->setAddress($row['address']);
+                $this->setCity($row['city']);
+                $this->setProvince($row['province']);
+                $this->setPostalCode($row['postalCode']);
+                $this->setUsername($row['username']);
+                // $this->setPassword($row['password']);
+                $this->setPicture($row['picture']);
+            }
+        }
+
+        public function updateCustomerById() {
+
+            #setting up the connection
+            global $connection;
+
+            #store class variables inside function local variable
+            $pCustomerId = $this->getCustomerId();
             $pFirstName = $this->getFirstName();
             $pLastName = $this->getLastName();
             $pAddress = $this->getAddress();
@@ -258,11 +290,11 @@
             $pPassword = $this->getPassword();
             $pPicture = $this->getPicture();
 
-            #stored procedure for insert new customer
-            $create = 'Call updateCustomer(?,?,?,?,?,?,?,?,?,?)';
+            #stored procedure for update customer by id
+            $updateCustomer = 'Call updateCustomer(?,?,?,?,?,?,?,?,?,?)';
 
             #execute the SQL statement
-            $PDOobject = $connection->prepare($create);
+            $PDOobject = $connection->prepare($updateCustomer);
 
             #bind the parameter
             $PDOobject->bindParam(1, $pCustomerId, PDO::PARAM_STR);
@@ -278,13 +310,39 @@
             
             $PDOobject->execute();
 
-            return "Account Updated";
+            $_SESSION['firstName'] = $pFirstName;
+            $_SESSION['lastName'] = $pLastName;
+            $_SESSION['address'] = $pAddress;
+            $_SESSION['city'] = $pCity;
+            $_SESSION['province'] = $pProvince;
+            $_SESSION['postalCode'] = $pPostalCode;
+            $_SESSION['username'] = $pUsername;
+            $_SESSION['picture'] = $pPicture;
+
+            
+            return "Account Updated, Refresh the page to see it's effect";
 
         }
 
-        public function getCustomerById(){
+        public function deleteCustomerById(){
             #setting up the connection
             global $connection;
+
+            #store class variables inside function local variable
+            $pCustomerId = $this->getCustomerById();
+
+            #stored procedure for delete customer by id
+            $deleteCustomer = 'Call deleteCustomer(?)';
+
+            #execute the SQL statement
+            $PDOobject = $connection->prepare($deleteCustomer);
+
+            #bind the parameter
+            $PDOobject->bindParam(1, $pCustomerId, PDO::PARAM_STR);
+
+            $PDOobject->execute();
+
+            return "Customer Deleted, Refresh the page to see it's effect";
         }
 
         public function login($pPassword){
@@ -295,7 +353,7 @@
             #store class variables inside function local variable
             $pUsername = $this->getUsername();
 
-            #stored procedure for insert new customer
+            #stored procedure for customer login
             $login = 'Call loginCustomer(?)';
 
             #execute the SQL statement
@@ -306,26 +364,11 @@
 
             $PDOobject->execute();
 
-            // if(!$PDOobject->fetch()) {
-            //     return "Username or password is incorrect!";
-            // }
-
             while($row = $PDOobject->fetch()) {
                 $passwordHash = $row['password'];
                 $valid = password_verify($pPassword, $passwordHash);
-                echo $valid;
-                if($valid) {
-                    // $this->setCustomerId($row['customerId']);
-                    // $this->setFirstName($row['firstName']);
-                    // $this->setLastName($row['lastName']);
-                    // $this->setAddress($row['address']);
-                    // $this->setCity($row['city']);
-                    // $this->setProvince($row['province']);
-                    // $this->setPostalCode($row['postalCode']);
-                    // $this->setUsername($row['username']);
-                    // // $this->setPassword($row['password']);
-                    // $this->setPicture($row['picture']);
 
+                if($valid) {
                     $_SESSION['customerId'] = $row['customerId'];
                     $_SESSION['firstName'] = $row['firstName'];
                     $_SESSION['lastName'] = $row['lastName'];
@@ -334,43 +377,15 @@
                     $_SESSION['province'] = $row['province'];
                     $_SESSION['postalCode'] = $row['postalCode'];
                     $_SESSION['username'] = $row['username'];
-                    // $_SESSION['password'] = $pPassword;
                     $_SESSION['picture'] = $row['picture'];
                     
                     return "";
                 } else {
-                    echo "Username or password is incorrect!";
                     return "Username or password is incorrect!";
                 }
             }
 
         }
-
-
-
-        // // public function selectCustomerByID() {
-            
-        // //     global connection;
-        // //     $customerById = 'Call select_one_customer(?)';
-
-        // //     $PDOobject = $connection->prepare($customerById);
-
-        // //     $PDOobject->bindParam(1, this.getCustomerId);
-
-        // //     if($row = $PDOobject->fetch(PDO::FETCH_ASSOC)){
-        // //         $this->setCustomerId = $row["customerId"];
-        // //         $this->setFirstName = $row["fistName"];
-        // //         $this->setLastName = $row["lastName"];
-        // //         $this->setAddress = $row["address"];
-        // //         $this->setCity = $row["city"];
-        // //         $this->setProvince = $row["province"];
-        // //         $this->setPostalCode = $row["postalCode"];
-        // //         $this->setUsername = $row["username"];
-        // //         $this->setPassword = $row["password"];
-        // //         $this->setPicture = $row["picture"];
-        // //         return true;
-        // //     }
-        // // }
 
 
     }

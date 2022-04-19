@@ -23,6 +23,15 @@
                 </p>
             </div>
         </div>
+        
+        <div class="cheat-sheet-download mt-5">
+            <div class="alert alert-warning" role="alert">
+                <b>Download Cheat Sheet:</b>
+                <a href="<?php echo CHEAT_SHEET ?>">
+                    Click Here!
+                </a>
+            </div>
+        </div>
     </div>
 
 <?php

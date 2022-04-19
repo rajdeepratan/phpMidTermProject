@@ -6,6 +6,7 @@
     require_once "./class/collection.php";
     require_once "./class/order/searchOrder.php";
     require_once "./class/order/searchOrders.php";
+    require_once "./class/order/order.php";
 
 
     if(empty($_SESSION['customerId'])) {
@@ -20,6 +21,18 @@
         } 
     } else {
         $orderList = new searchOrders();
+        $order = new order();
+    }
+
+    $errorOrderId = "";
+
+    #check if the user clicked the submit button
+    if(isset($_POST['deleteItem'])) {
+        $errorOrderId = $order->setOrderId($_POST["deleteItem"]);
+
+        if(empty($errorOrderId)){
+            $success = $order->deleteOrderById();
+        }
     }
     
 ?>
@@ -40,52 +53,49 @@
             </div>
         </form>
 
-        <table class="table table-striped mt-5">
-            <thead>
-                <tr>
-                <th scope="col">Delete</th>
-                <th scope="col">Date</th>
-                <th scope="col">Product Code</th>
-                <th scope="col">First Name</th>
-                <th scope="col">Last Name</th>
-                <th scope="col">City</th>
-                <th scope="col">Comment</th>
-                <th scope="col" class="text-end">Price</th>
-                <th scope="col" class="text-end">Qty</th>
-                <th scope="col" class="text-end">Subtotal</th>
-                <th scope="col" class="text-end">Taxes</th>
-                <th scope="col" class="text-end">Total Amount</th>
-                </tr>
-            </thead>
-            <tbody id="order-table">
-                <?php 
-                    foreach($orderList->items as $searchOrder) {
-                        echo "<tr>";
-                        echo "<th scope='row'>delete</th>";
-                        $date = date_create($searchOrder->getCreatedAt());
-                        echo "<td>".date_format($date, 'Y-m-d')."</td>";
-                        echo "<td>".$searchOrder->getProductCode()."</td>";
-                        echo "<td>".$searchOrder->getFirstName()."</td>";
-                        echo "<td>".$searchOrder->getLastName()."</td>";
-                        echo "<td>".$searchOrder->getCity()."</td>";
-                        echo "<td>".$searchOrder->getComments()."</td>";
-                        echo "<td>".$searchOrder->getPrice()."</td>";
-                        echo "<td>".$searchOrder->getProductQty()."</td>";
-                        echo "<td>".$searchOrder->getPrice()*$searchOrder->getProductQty()."</td>";
-                        echo "<td>".$searchOrder->getTaxesAmount()."</td>";
-                        echo "<td>".($searchOrder->getPrice()*$searchOrder->getProductQty()) + $searchOrder->getTaxesAmount()."</td>";
-                    }
-                ?>
-            </tbody>
-        </table>
+        <form method='post'>
+            <table class="table table-striped mt-5">
+                <thead>
+                    <tr>
+                    <th scope="col">Delete</th>
+                    <th scope="col">Date</th>
+                    <th scope="col">Product Code</th>
+                    <th scope="col">First Name</th>
+                    <th scope="col">Last Name</th>
+                    <th scope="col">City</th>
+                    <th scope="col">Comment</th>
+                    <th scope="col" class="text-end">Price</th>
+                    <th scope="col" class="text-end">Qty</th>
+                    <th scope="col" class="text-end">Subtotal</th>
+                    <th scope="col" class="text-end">Taxes</th>
+                    <th scope="col" class="text-end">Total Amount</th>
+                    </tr>
+                </thead>
+                <tbody id="order-table">
+                    <?php 
+                        foreach($orderList->items as $searchOrder) {
+                            echo "<tr>";
+                            echo "<th scope='row'><button type='submit' class='btn btn-danger' name='deleteItem' value=".$searchOrder->getOrderId().">Delete</button></th>";
+                            $date = date_create($searchOrder->getCreatedAt());
+                            echo "<td>".date_format($date, 'Y-m-d')."</td>";
+                            echo "<td>".$searchOrder->getProductCode()."</td>";
+                            echo "<td>".$searchOrder->getFirstName()."</td>";
+                            echo "<td>".$searchOrder->getLastName()."</td>";
+                            echo "<td>".$searchOrder->getCity()."</td>";
+                            echo "<td>".$searchOrder->getComments()."</td>";
+                            echo "<td>".$searchOrder->getPrice()."</td>";
+                            echo "<td>".$searchOrder->getProductQty()."</td>";
+                            echo "<td>".$searchOrder->getPrice()*$searchOrder->getProductQty()."</td>";
+                            echo "<td>".$searchOrder->getTaxesAmount()."</td>";
+                            echo "<td>".($searchOrder->getPrice()*$searchOrder->getProductQty()) + $searchOrder->getTaxesAmount()."</td>";
+                        }
+                    ?>
+                </tbody>
+            </table>
+        </form>
 
-        <div class="cheat-sheet-download mt-5">
-            <div class="alert alert-warning" role="alert">
-                <b>Download Cheat Sheet:</b>
-                <a href="<?php echo CHEAT_SHEET ?>">
-                    Click Here!
-                </a>
-            </div>
+        <div class="alert alert-success mt-4 <?php if(!$success) echo "d-none" ?>" role="alert">
+            <?php echo $success; ?>
         </div>
     </div>
 

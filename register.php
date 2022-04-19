@@ -57,7 +57,7 @@
             if(empty($customerId)) {
                 $success = $customer->createCustomer();
             } else {
-                $success = $customer->updateCustomer();
+                $success = $customer->updateCustomerById();
             }
         }
     

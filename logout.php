@@ -2,7 +2,7 @@
     include_once "./phpFunction/functionProducts.php";
 
     pageTop("Logout");
-
+    
     session_destroy();
 
     if(!headers_sent()){
