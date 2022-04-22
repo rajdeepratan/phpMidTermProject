@@ -1,6 +1,6 @@
 <?php
 
-    include_once "../login.php";
+include_once "../login.php";
 
 define("DEBUGGING_MODE", TRUE);
 define("FOLDER_ERROR", "./errors/");
@@ -100,6 +100,12 @@ function pageTop($pageTitle) {
     header('CacheControl: no-cache');
     header('Pragma: no-cache');
     header('Content-type: text/html; charset=UTF-8');
+
+    //Redirect website on HTTPS
+    if(!isset($_SERVER["HTTPS"]) || $_SERVER["HTTPS"] != "on") {
+        header("Location: https://" . $_SERVER["HTTP_HOST"] . $_SERVER["REQUEST_URI"], true, 301);
+        exit;
+    }
     
     session_start();
 
