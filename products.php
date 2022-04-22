@@ -99,7 +99,7 @@
             </div>
             <input type="submit" class="btn btn-primary" name="submitButton" value="Submit" />
         </form>
-        <div class="alert alert-danger mt-3 <?php if(empty($errorCustomerID) && empty($errorPrice)) echo "d-none" ?>" role="alert">
+        <div class="alert alert-danger text-center mt-3 <?php if(empty($errorCustomerID) && empty($errorPrice)) echo "d-none" ?>" role="alert">
             <?php 
                 if(!empty($errorCustomerID)){
                     echo $errorCustomerID;
@@ -108,7 +108,7 @@
                 }
             ?>
         </div>
-        <div class="alert alert-success mt-4 <?php if(!$success) echo "d-none" ?>" role="alert">
+        <div class="alert alert-success text-center mt-4 <?php if(!$success) echo "d-none" ?>" role="alert">
             <?php echo $success; ?>
         </div>
 

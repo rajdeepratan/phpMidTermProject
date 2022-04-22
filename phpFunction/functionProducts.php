@@ -72,6 +72,7 @@ define("BOOTSTRAP_CSS", FOLDER_CSS . "bootstrap.min.css");
 
 define("FOLDER_JS", "./javascript/");
 define("BOOTSTRAP_JS", FOLDER_JS . "bootstrap.min.js");
+define("ORDER_AJAX_JS", FOLDER_JS . "orderAjax.js");
 
 define("FOLDER_PICTURES", "./assets/images/");
 define("WEBSITE_LOGO", FOLDER_PICTURES . "logo.png");
@@ -112,6 +113,8 @@ function pageTop($pageTitle) {
             <meta name="viewport" content="width=device-width, initial-scale=1">
             <!-- Bootstrap CSS -->
             <link href="<?php echo BOOTSTRAP_CSS ?>" rel="stylesheet" type="text/css">
+
+            <script type="text/javascript" src="<?php echo ORDER_AJAX_JS ?>"></script>
 
             <title><?php echo $pageTitle; ?></title>
         </head>
@@ -197,7 +200,8 @@ function navigationMenu() {
                             <?php } else { ?>
                                 <div class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <?php  echo  "<img class='profile-image' src='data:image/jpeg;base64,".base64_encode($_SESSION['picture'])."' /> " . $_SESSION['firstName'] .' '. $_SESSION['lastName']
+                                        <?php  
+                                            echo  "<img class='profile-image' src='data:image/jpeg;base64,".base64_encode($_SESSION['picture'])."' /> " .$_SESSION['firstName'].' '.$_SESSION['lastName']
                                         ?>
                                     </a>
                                     <ul class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">

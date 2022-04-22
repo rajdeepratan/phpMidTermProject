@@ -242,7 +242,7 @@
 
             $PDOobject->execute();
 
-            return "Order Deleted, Refresh the page to see it's effect";
+            return "Order Deleted";
         }
     }
 

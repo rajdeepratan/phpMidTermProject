@@ -67,5 +67,5 @@ body {
 .home-page,
 .product-page,
 .order-page {
-    min-height: calc(100vh - 269px);
+    min-height: calc(100vh - 323px);
 }
