@@ -2,7 +2,7 @@
 
 include_once "../login.php";
 
-define("DEBUGGING_MODE", TRUE);
+define("DEBUGGING_MODE", FALSE);
 define("FOLDER_ERROR", "./errors/");
 define("FILE_ERROR", FOLDER_ERROR ."error.log");
 $currentDateTime = date('Y-m-d h:m:s');

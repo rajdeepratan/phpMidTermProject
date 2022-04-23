@@ -1,7 +1,9 @@
 <?php
 
-    // include_once "../../phpFunction/functionProducts.php";
-
+/**
+ * Order Search Class use for getting all the order list of current login user
+ */
+    cla
     class searchOrders extends collection {
         
         function __construct($pDate) {

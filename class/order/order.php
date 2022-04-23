@@ -2,6 +2,9 @@
 
     require_once "connection/connection.php";
 
+/**
+ * Order Class use for  get, insert, update, delete
+ */
     class order {
 
         const QUANTITY_MAX_LENGTH = 999;
@@ -15,17 +18,33 @@
         private $taxesAmount = "";
         private $comments = "";
 
+        /**
+         * @return string
+         */
         public function getOrderId() {
             return $this->orderId;
         }
+        /**
+         * @param mixed $orderId
+         * 
+         * @return string
+         */
         public function setOrderId($orderId) {
             $this->orderId = $orderId;
             return null;
         }
 
+        /**
+         * @return string
+         */
         public function getCustomerId() {
             return $this->customerId;
         }
+        /**
+         * @param mixed $customerId
+         * 
+         * @return string
+         */
         public function setCustomerId($customerId){
             if(empty($customerId)) {
                 return "Need to login before placing your order";
@@ -35,9 +54,17 @@
             }
         }
 
+        /**
+         * @return string
+         */
         public function getProductId() {
             return $this->productId;
         }
+        /**
+         * @param mixed $productId
+         * 
+         * @return string
+         */
         public function setProductId($productId) {
             if(empty($productId)) {
                 return "Select the Product";
@@ -47,9 +74,17 @@
             }
         }
 
+        /**
+         * @return string
+         */
         public function getProductQty() {
             return $this->productQty;
         }
+        /**
+         * @param mixed $productQty
+         * 
+         * @return string
+         */
         public function setProductQty($productQty) {
             if(empty($productQty)){
                 return "Enter the quantity";
@@ -61,9 +96,17 @@
             }
         }
 
+        /**
+         * @return string
+         */
         public function getPrice() {
             return $this->price;
         }
+        /**
+         * @param mixed $price
+         * 
+         * @return string
+         */
         public function setPrice($price) {
             if(empty($price)){
                 return "Price can not be empty";
@@ -73,9 +116,17 @@
             return null;
         }
 
+        /**
+         * @return string
+         */
         public function getTaxesAmount(){
             return $this->taxesAmount;
         }
+        /**
+         * @param mixed $taxesAmount
+         * 
+         * @return string
+         */
         public function setTaxesAmount($taxesAmount){
             if(empty($taxesAmount)){
                 return "Taxes can not be empty";
@@ -85,9 +136,17 @@
             return null;
         }
 
+        /**
+         * @return string
+         */
         public function getComments() {
             return $this->comments;
         }
+        /**
+         * @param mixed $comments
+         * 
+         * @return string
+         */
         public function setComments($comments) {
             if(!empty($comments)){
                 if(mb_strlen($comments) > self::COMMENT_MAX_LENGTH) {
@@ -99,6 +158,15 @@
             }
         }
 
+        /**
+         * @param string $orderId
+         * @param string $customerId
+         * @param string $productId
+         * @param string $productQty
+         * @param string $price
+         * @param mixed $taxesAmount=""
+         * @param string $comments
+         */
         public function __construct($orderId = "", $customerId = "", $productId = "", $productQty = "", $price = "", $taxesAmount="", $comments = "")  {
 
             if($orderId){
@@ -130,6 +198,9 @@
 
         }
 
+        /**
+         * @return string
+         */
         public function createOrder(){
 
             #setting up the connection
@@ -163,6 +234,9 @@
             
         }
 
+        /**
+         * @return string
+         */
         public function getOrderById(){
 
             #setting up the connection
@@ -193,6 +267,9 @@
             }
         }
 
+        /**
+         * @return string
+         */
         public function updateOrderById(){
 
             #setting up the connection
@@ -221,6 +298,9 @@
             return "Order Updated, Refresh the page to see it's effect";
         }
 
+        /**
+         * @return string
+         */
         public function deleteOrderById(){
 
             #setting up the connection

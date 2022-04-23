@@ -1,7 +1,12 @@
 <?php
 
+/**
+ * Customers class for getting all the list for customers
+ */
 class customers extends collection {
 
+    /**
+     */
     function __construct(){
 
         #setting up the connection

@@ -2,6 +2,9 @@
 
     require_once "./connection/connection.php";
 
+/**
+ * Product Class use for  get, insert, update, delete
+ */
     class product {
 
         const CODE_MAX_LENGTH = 12;
@@ -14,17 +17,33 @@
         private $productRetailPrice	 = "";
         private $productCostPrice = "";
 
+        /**
+         * @return string
+         */
         public function getProductId() {
             return $this->productId;
         }
+        /**
+         * @param mixed $productId
+         * 
+         * @return string
+         */
         public function setProductId($productId) {
             $this->productId = $productId;
             return null;
         }
 
+        /**
+         * @return string
+         */
         public function getProductCode(){
             return $this->productCode;
         }
+        /**
+         * @param mixed $productCode
+         * 
+         * @return string
+         */
         public function setProductCode($productCode) {
             if(empty($productCode)) {
                 return "The product code is empty";
@@ -37,9 +56,17 @@
            
         }
 
+        /**
+         * @return string
+         */
         public function getProductDescription(){
             return $this->productDescription;
         }
+        /**
+         * @param mixed $productDescription
+         * 
+         * @return string
+         */
         public function setProductDescription($productDescription) {
             if(empty($productDescription)) {
                 return "The product description is empty";
@@ -51,22 +78,45 @@
             }
         }
 
+        /**
+         * @return string
+         */
         public function getProductRetailPrice(){
             return $this->productRetailPrice;
         }
+        /**
+         * @param mixed $productRetailPrice
+         * 
+         * @return string
+         */
         public function setProductRetailPrice($productRetailPrice) {
             $this->productRetailPrice = $productRetailPrice;
             return null;
         }
 
+        /**
+         * @return string
+         */
         public function getProductCostPrice(){
             return $this->productCostPrice;
         }
+        /**
+         * @param mixed $productCostPrice
+         * 
+         * @return string
+         */
         public function setProductCostPrice($productCostPrice) {
             $this->productCostPrice = $productCostPrice;
             return null;
         }
 
+        /**
+         * @param mixed $productId
+         * @param mixed $productCode
+         * @param mixed $productDescription
+         * @param mixed $productRetailPrice
+         * @param mixed $productCostPrice
+         */
         public function __construct($productId, $productCode, $productDescription, $productRetailPrice, $productCostPrice) {
             
             if($productId && $productCode && $productDescription && $productRetailPrice && $productCostPrice) {
@@ -80,6 +130,9 @@
 
         }
 
+        /**
+         * @return string
+         */
         public function createProduct(){
 
             #setting up the connection
@@ -108,6 +161,9 @@
             return "Product Created";
         }
 
+        /**
+         * @return string
+         */
         public function getProductById(){
 
             #setting up the connection
@@ -136,6 +192,9 @@
             
         }
 
+        /**
+         * @return string
+         */
         public function updateProductById() {
 
             #setting up the connection
@@ -167,6 +226,9 @@
 
         }
 
+        /**
+         * @return string
+         */
         public function deleteProductById(){
             #setting up the connection
             global $connection;

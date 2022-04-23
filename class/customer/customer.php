@@ -2,6 +2,9 @@
 
     require_once "connection/connection.php";
 
+/**
+ * Customer Class use for  get, insert, update, delete
+ */
     class customer {
 
         const NAME_MAX_LENGTH = 20;
@@ -21,17 +24,34 @@
         private $password = "";
         private $picture;
 
+        /**
+         * @return string
+         */
         public function getCustomerId() {
             return $this->customerId;
         }
+
+        /**
+         * @param mixed $customerId
+         * 
+         * @return string
+         */
         public function setCustomerId($customerId) {
             $this->customerId = $customerId;
             return null;
         }
 
+        /**
+         * @return string
+         */
         public function getFirstName() {
             return $this->firstName;
         }
+        /**
+         * @param mixed $firstName
+         * 
+         * @return string
+         */
         public function setFirstName($firstName) {
             if(empty($firstName)) {
                 return "The first name is empty";
@@ -43,9 +63,17 @@
             }
         }
 
+        /**
+         * @return string
+         */
         public function getLastName() {
             return $this->lastName;
         }
+        /**
+         * @param mixed $lastName
+         * 
+         * @return string
+         */
         public function setLastName($lastName) {
             if(empty($lastName)) {
                 return "The last name is empty";
@@ -57,9 +85,17 @@
             }
         }
 
+        /**
+         * @return string
+         */
         public function getAddress() {
             return $this->address;
         }
+        /**
+         * @param mixed $address
+         * 
+         * @return string
+         */
         public function setAddress($address) {
             if(empty($address)) {
                 return "The address is empty";
@@ -71,9 +107,17 @@
             }
         }
 
+        /**
+         * @return string
+         */
         public function getCity() {
             return $this->city;
         }
+        /**
+         * @param mixed $city
+         * 
+         * @return string
+         */
         public function setCity($city) {
         if(empty($city)) {
                 return "The city is empty";
@@ -85,6 +129,9 @@
             }
         }
 
+        /**
+         * @return string
+         */
         public function getProvince() {
             return $this->province;
         }
@@ -99,9 +146,17 @@
             }
         }
         
+        /**
+         * @return string
+         */
         public function getPostalCode() {
             return $this->postalCode;
         }
+        /**
+         * @param mixed $postalCode
+         * 
+         * @return string
+         */
         public function setPostalCode($postalCode) {
             if(empty($postalCode)) {
                 return "The postalCode is empty";
@@ -113,9 +168,17 @@
             }
         }
 
+        /**
+         * @return string
+         */
         public function getUsername() {
             return $this->username;
         }
+        /**
+         * @param mixed $username
+         * 
+         * @return string
+         */
         public function setUsername($username) {
             if(empty($username)) {
                 return "The user name is empty";
@@ -127,9 +190,17 @@
             }
         }
         
+        /**
+         * @return string
+         */
         public function getPassword() {
             return $this->password;
         }
+        /**
+         * @param mixed $password
+         * 
+         * @return string
+         */
         public function setPassword($password) {
             if(empty($password)) {
                 return "The password is empty";
@@ -142,9 +213,17 @@
             }
         }
         
+        /**
+         * @return blob
+         */
         public function getPicture() {
             return $this->picture;
         }
+        /**
+         * @param mixed $profilePicture
+         * 
+         * @return string
+         */
         public function setPicture($profilePicture) {
             if($_FILES[$profilePicture]["error"] == UPLOAD_ERR_OK && is_uploaded_file($_FILES[$profilePicture]['tmp_name'])) {
 
@@ -167,6 +246,18 @@
             }
         }
 
+        /**
+         * @param string $customerId
+         * @param string $firstName
+         * @param string $lastName
+         * @param string $address
+         * @param string $city
+         * @param string $province
+         * @param string $postalCode
+         * @param string $username
+         * @param string $password
+         * @param string $picture
+         */
         public function __construct($customerId = "", $firstName = "", $lastName = "", $address = "", $city = "", $province = "", $postalCode = "", $username = "", $password = "", $picture = "") {
 
                 if($customerId) {
@@ -202,6 +293,9 @@
 
         }
 
+        /**
+         * @return string
+         */
         public function createCustomer() {
             
             #setting up the connection
@@ -241,6 +335,9 @@
 
         }
 
+        /**
+         * @return string
+         */
         public function getCustomerById(){
 
             #setting up the connection
@@ -268,11 +365,13 @@
                 $this->setProvince($row['province']);
                 $this->setPostalCode($row['postalCode']);
                 $this->setUsername($row['username']);
-                // $this->setPassword($row['password']);
                 $this->setPicture($row['picture']);
             }
         }
 
+        /**
+         * @return string
+         */
         public function updateCustomerById() {
 
             #setting up the connection
@@ -324,6 +423,9 @@
 
         }
 
+        /**
+         * @return string
+         */
         public function deleteCustomerById(){
             #setting up the connection
             global $connection;
@@ -345,6 +447,11 @@
             return "Customer Deleted, Refresh the page to see it's effect";
         }
 
+        /**
+         * @param mixed $pPassword
+         * 
+         * @return string
+         */
         public function login($pPassword){
             
             #setting up the connection

@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Orders class for getting all the list for orders
+ */
     class orders extends collection {
 
         function __construct() {

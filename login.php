@@ -16,27 +16,12 @@
 
         $customer = new customer();
 
-        // $pPassword = $_POST["password"];
-
         $errorUsername = $customer->setUsername($_POST["username"]);
-        // $errorPassword = $customer->setPassword($_POST["password"]);
-
-        // if($errorUsername) {
-        //     $errorOccurred = true;
-        // }
-        // if($errorPassword) {
-        //     $errorOccurred = true;
-        // }
 
         if($errorOccurred == false) {
             $errorLogin = $customer->login($_POST["password"]);
         }
-
-        // if(!$errorLogin) {
-        //     // echo $_SESSION['customerId'];
-        //     header("Location:".FILE_REGISTER);
-        //     exit;
-        // }
+        
     }
 
     if(!empty($_SESSION['customerId'])) {

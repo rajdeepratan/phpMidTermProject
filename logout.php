@@ -3,6 +3,7 @@
 
     pageTop("Logout");
     
+    #destroy the login session
     session_destroy();
 
     if(!headers_sent()){

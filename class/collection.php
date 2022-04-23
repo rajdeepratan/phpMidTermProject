@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * collection class use for creating collection list
+ */
     class collection {
         
         public $items = array();
